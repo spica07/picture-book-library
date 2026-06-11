@@ -1,0 +1,368 @@
+/* ============================================================
+ * storybook.css — 그림동화 공용 뷰어 스타일 (캐러셀)
+ * 5~7세 대상: 큰 글자, 둥근 모서리, 파스텔 톤
+ * 그림이 화면을 최대한 채우고, 모바일/태블릿 비율에 맞춰
+ * 세로 공간을 유동적으로 쓴다 (dvh 기준)
+ * ============================================================ */
+
+:root {
+  --sky-top: #bfe3ff;
+  --sky-bottom: #fdf3e3;
+  --ink: #4a3f35;
+  --ink-soft: #8a7b6c;
+  --card: #fffdf8;
+  --accent: #ff9d6c;
+  --accent-deep: #f07b3f;
+  --shadow: 0 10px 30px rgba(80, 60, 30, 0.18);
+  --radius: 22px;
+  --header-h: 56px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body { height: 100%; }
+
+body {
+  font-family: "Gowun Dodum", "Malgun Gothic", "맑은 고딕", sans-serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 100%);
+  background-attachment: fixed;
+  overflow: hidden; /* 캐러셀: 페이지 스크롤 대신 슬라이드 */
+}
+
+#app {
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 상단 바 ---------- */
+
+.sb-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  min-height: var(--header-h);
+  flex-wrap: wrap;
+}
+
+.sb-home {
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--card);
+  border-radius: 999px;
+  padding: 7px 16px;
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+  transition: transform 0.15s;
+}
+.sb-home:hover { transform: scale(1.05); }
+
+.sb-book-title {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 40vw;
+}
+
+.sb-spacer { flex: 1; }
+
+/* 읽어주기 버튼(칩) */
+.sb-chip {
+  font: inherit;
+  font-size: 0.95rem;
+  border: none;
+  cursor: pointer;
+  color: var(--ink);
+  background: var(--card);
+  border-radius: 999px;
+  padding: 7px 16px;
+  box-shadow: var(--shadow);
+  white-space: nowrap;
+  transition: transform 0.15s, background 0.15s, color 0.15s;
+}
+.sb-chip:hover { transform: scale(1.05); }
+.sb-chip.sb-on {
+  background: var(--accent);
+  color: #fff;
+}
+
+.sb-page-count {
+  background: var(--card);
+  border-radius: 999px;
+  padding: 5px 14px;
+  box-shadow: var(--shadow);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* ---------- 캐러셀 ---------- */
+
+.sb-viewport {
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  touch-action: pan-y; /* 가로 드래그는 캐러셀, 세로는 브라우저 */
+  cursor: grab;
+}
+.sb-viewport:active { cursor: grabbing; }
+
+.sb-track {
+  display: flex;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.25, 0.8, 0.3, 1);
+  will-change: transform;
+}
+.sb-track.sb-dragging { transition: none; }
+
+.sb-slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 70px 18px;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* 그림: 남는 공간을 전부 차지해 최대한 크게 */
+.sb-figure {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sb-img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  background: #e8eef5;
+  pointer-events: none; /* 드래그 시 이미지 고스트 방지 */
+}
+
+/* ---------- 표지 ---------- */
+
+.sb-cover .sb-cover-text {
+  text-align: center;
+  padding: 14px 10px 6px;
+}
+
+.sb-series {
+  color: var(--accent-deep);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+.sb-title {
+  font-size: clamp(1.7rem, 4.5vw, 2.8rem);
+  margin: 4px 0 6px;
+}
+
+.sb-meta {
+  color: var(--ink-soft);
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+}
+
+/* ---------- 본문 장면 ---------- */
+
+.sb-text {
+  width: 100%;
+  max-width: 880px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px 28px;
+  margin-top: 14px;
+  font-size: clamp(1.1rem, 2.2vmax, 1.45rem);
+  line-height: 1.75;
+  text-align: center;
+  max-height: 38dvh;
+  overflow-y: auto;
+}
+.sb-text p + p { margin-top: 2px; }
+
+/* ---------- 뒷표지 ---------- */
+
+.sb-back {
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.sb-back-card {
+  width: 100%;
+  max-width: 760px;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 36px 34px;
+  text-align: center;
+  margin: auto 0;
+}
+
+.sb-end-mark { color: var(--accent-deep); margin-bottom: 14px; }
+
+.sb-quote {
+  font-size: clamp(1.2rem, 2.8vw, 1.7rem);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.sb-guide {
+  text-align: left;
+  background: #fff4e6;
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 24px;
+}
+.sb-guide h3 { margin-bottom: 10px; }
+.sb-guide ul { list-style: none; }
+.sb-guide li { margin: 8px 0; line-height: 1.6; }
+.sb-guide strong {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 999px;
+  padding: 1px 12px;
+  margin-right: 8px;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+.sb-back-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+/* ---------- 버튼 / 내비게이션 ---------- */
+
+.sb-btn {
+  display: inline-block;
+  font: inherit;
+  font-size: 1.05rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  color: #fff;
+  background: var(--accent);
+  border-radius: 999px;
+  padding: 12px 30px;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s, background 0.15s;
+}
+.sb-btn:hover { transform: scale(1.05); background: var(--accent-deep); }
+.sb-btn-light { background: #b8c9d9; }
+.sb-btn-light:hover { background: #9db3c8; }
+
+.sb-nav {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 54px;
+  height: 54px;
+  border: none;
+  border-radius: 50%;
+  background: var(--card);
+  color: var(--accent-deep);
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform 0.15s, opacity 0.2s;
+  z-index: 10;
+}
+.sb-prev { left: 10px; }
+.sb-next { right: 10px; }
+.sb-nav:hover:not(:disabled) { transform: translateY(-50%) scale(1.12); }
+.sb-nav:disabled { opacity: 0.25; cursor: default; }
+
+/* ---------- 진행 바 ---------- */
+
+.sb-progress {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 10;
+}
+.sb-progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, #ffd166, var(--accent-deep));
+  border-radius: 0 999px 999px 0;
+  transition: width 0.3s ease;
+}
+
+/* ---------- 오류 화면 ---------- */
+
+.sb-error {
+  max-width: 520px;
+  margin: 18vh auto 0;
+  text-align: center;
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 46px 36px;
+}
+.sb-error h1 { margin-bottom: 12px; }
+.sb-error p { color: var(--ink-soft); margin-bottom: 24px; line-height: 1.6; }
+
+/* 세로 화면(태블릿·폰 세로 모드): 그림이 가로폭에 묶여 작아지므로
+   그림+글을 세로 가운데로 모아 들뜬 여백을 없앤다 */
+@media (orientation: portrait) {
+  .sb-slide { justify-content: center; }
+  .sb-figure { flex: 0 1 auto; }
+}
+
+/* ---------- 태블릿 (1024px 이하) ---------- */
+
+@media (max-width: 1024px) {
+  .sb-slide { padding: 4px 56px 16px; }
+  .sb-book-title { display: none; }
+}
+
+/* ---------- 모바일 (640px 이하) ---------- */
+
+@media (max-width: 640px) {
+  .sb-header { padding: 8px 10px; gap: 7px; }
+  .sb-home, .sb-chip { padding: 6px 12px; font-size: 0.88rem; }
+  .sb-page-count { padding: 4px 11px; font-size: 0.88rem; }
+
+  /* 좌우 버튼은 화면 하단 모서리로 — 그림 가로폭을 모두 그림에 양보 */
+  .sb-slide { padding: 4px 12px 64px; }
+  .sb-nav {
+    top: auto;
+    bottom: 16px;
+    transform: none;
+    width: 48px;
+    height: 48px;
+    font-size: 1.7rem;
+  }
+  .sb-nav:hover:not(:disabled) { transform: scale(1.12); }
+  .sb-prev { left: 16px; }
+  .sb-next { right: 16px; }
+
+  .sb-text {
+    padding: 13px 16px;
+    margin-top: 10px;
+    line-height: 1.65;
+    max-height: 34dvh;
+  }
+  .sb-back-card { padding: 26px 18px; }
+  .sb-guide { padding: 14px 16px; }
+}
+
+/* 가로로 긴 화면(폰 가로 모드 등): 글 상자를 더 낮게, 그림 우선 */
+@media (max-height: 480px) {
+  .sb-header { min-height: 44px; padding: 6px 10px; }
+  .sb-text { max-height: 30dvh; padding: 8px 16px; font-size: 1rem; line-height: 1.5; }
+  .sb-meta { display: none; }
+}

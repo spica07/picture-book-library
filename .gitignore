@@ -1,0 +1,4 @@
+# 검증 도구 임시 산출물
+.playwright-mcp/
+Thumbs.db
+desktop.ini

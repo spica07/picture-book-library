@@ -1,0 +1,85 @@
+/* ============================================================
+ * library.css — 책장(index.html) 스타일
+ * storybook.css 의 변수/기본값 위에 얹어 쓴다
+ * ============================================================ */
+
+.lib-header {
+  text-align: center;
+  padding: 56px 20px 30px;
+}
+.lib-header h1 { font-size: clamp(1.9rem, 5vw, 3rem); }
+.lib-header p { color: var(--ink-soft); margin-top: 10px; font-size: 1.05rem; }
+
+.lib-series { max-width: 1100px; margin: 0 auto; padding: 0 24px 70px; }
+
+.lib-series h2 {
+  margin: 28px 0 18px;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.lib-series h2::after {
+  content: "";
+  flex: 1;
+  height: 3px;
+  border-radius: 99px;
+  background: rgba(240, 123, 63, 0.25);
+}
+
+.lib-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+.lib-card {
+  display: block;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.lib-card:hover {
+  transform: translateY(-6px) rotate(-0.5deg);
+  box-shadow: 0 16px 36px rgba(80, 60, 30, 0.25);
+}
+
+.lib-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: #e8eef5;
+}
+
+.lib-card-body { padding: 14px 18px 18px; }
+.lib-card-vol { color: var(--accent-deep); font-size: 0.85rem; font-weight: 700; }
+.lib-card-title { font-size: 1.2rem; margin: 4px 0 6px; }
+.lib-card-lesson { color: var(--ink-soft); font-size: 0.88rem; line-height: 1.5; }
+
+/* 준비 중인 책 */
+.lib-card.lib-soon { cursor: default; }
+.lib-card.lib-soon:hover { transform: none; box-shadow: var(--shadow); }
+.lib-card.lib-soon img { filter: grayscale(0.55) opacity(0.75); }
+
+.lib-badge-soon {
+  display: inline-block;
+  background: #b8c9d9;
+  color: #fff;
+  border-radius: 999px;
+  padding: 2px 12px;
+  font-size: 0.78rem;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+.lib-footer {
+  text-align: center;
+  color: var(--ink-soft);
+  padding: 0 20px 50px;
+  font-size: 0.9rem;
+}

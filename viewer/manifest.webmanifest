@@ -1,0 +1,16 @@
+{
+  "name": "그림동화 책장",
+  "short_name": "그림동화",
+  "description": "5~7세 유아 그림동화 라이브러리 — 캐러셀 뷰어와 읽어주기 기능",
+  "lang": "ko",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#bfe3ff",
+  "theme_color": "#bfe3ff",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

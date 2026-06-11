@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>그림동화 책장 — 유아 그림동화 라이브러리</title>
+<meta name="theme-color" content="#bfe3ff">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common/storybook.css">
+<link rel="stylesheet" href="common/library.css">
+</head>
+<body>
+
+<header class="lib-header">
+  <h1>📚 그림동화 책장</h1>
+  <p>읽고 싶은 책을 골라 보세요! (5~7세)</p>
+</header>
+
+<div id="library"></div>
+
+<footer class="lib-footer">
+  ← → 방향키나 화면 양옆 버튼으로 책장을 넘길 수 있어요.
+</footer>
+
+<script>
+// PWA: 서비스 워커 등록 (https/localhost에서만 동작, file:// 에서는 건너뜀)
+if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
+<script src="books/manifest.js"></script>
+<script>
+// manifest.js 의 LIBRARY 목록으로 시리즈별 책 카드를 그린다
+(function () {
+  "use strict";
+  var root = document.getElementById("library");
+
+  window.LIBRARY.forEach(function (series) {
+    var section = document.createElement("section");
+    section.className = "lib-series";
+
+    var cards = series.books.map(function (b) {
+      if (b.available) {
+        return (
+          '<a class="lib-card" href="book.html?book=' + b.id + '">' +
+          '  <img src="' + b.cover + '" alt="' + b.title + ' 표지" loading="lazy">' +
+          '  <div class="lib-card-body">' +
+          '    <div class="lib-card-vol">' + b.volume + "</div>" +
+          '    <div class="lib-card-title">' + b.title + "</div>" +
+          '    <div class="lib-card-lesson">' + b.lesson + "</div>" +
+          "  </div>" +
+          "</a>"
+        );
+      }
+      return (
+        '<div class="lib-card lib-soon">' +
+        '  <img src="' + b.cover + '" alt="' + b.title + ' 표지" loading="lazy">' +
+        '  <div class="lib-card-body">' +
+        '    <div class="lib-card-vol">' + b.volume + '<span class="lib-badge-soon">준비 중</span></div>' +
+        '    <div class="lib-card-title">' + b.title + "</div>" +
+        '    <div class="lib-card-lesson">' + b.lesson + "</div>" +
+        "  </div>" +
+        "</div>"
+      );
+    }).join("");
+
+    section.innerHTML =
+      "<h2>" + series.seriesIcon + " " + series.series + "</h2>" +
+      '<div class="lib-grid">' + cards + "</div>";
+    root.appendChild(section);
+  });
+})();
+</script>
+</body>
+</html>

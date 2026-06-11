@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>그림동화 뷰어</title>
+<meta name="theme-color" content="#bfe3ff">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="common/storybook.css">
+</head>
+<body>
+<!-- 공용 셸: ?book=책ID 에 따라 storybook.js 가 books/책ID.js 를 로드해 렌더링한다 -->
+<div id="app"></div>
+<script>
+// PWA: 서비스 워커 등록 (https/localhost에서만 동작, file:// 에서는 건너뜀)
+if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
+<script src="common/storybook.js"></script>
+</body>
+</html>
