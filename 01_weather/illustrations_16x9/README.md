@@ -8,7 +8,7 @@ Generated with the built-in image generation tool for the `01_weather` picture b
 - Image format: PNG
 - Verified dimensions: `1672 x 941`
 - Verified aspect ratio: `1.7768`, effectively 16:9
-- Generated count: 93
+- Generated count: 125
 - Scope currently completed:
   - 11 cover illustrations: Vol01 through Vol10 plus Vol11 special finale
   - 18 interior illustrations for Vol01 `Vol01_cloud.md`
@@ -16,6 +16,8 @@ Generated with the built-in image generation tool for the `01_weather` picture b
   - 16 interior illustrations for Vol03 `Vol03_sun.md`
   - 16 interior illustrations for Vol04 `Vol04_thunder.md`
   - 16 interior illustrations for Vol05 `Vol05_lightning.md`
+  - 16 interior illustrations for Vol06 `Vol06_wind.md`
+  - 16 interior illustrations for Vol07 `Vol07_snowflake.md`
 
 ## Naming
 
@@ -29,12 +31,16 @@ Generated with the built-in image generation tool for the `01_weather` picture b
 - `vol04_scene01_loud_greeting.png` through `vol04_scene16_child_thanks_thunder.png`
 - `vol05_cover_lightning.png`
 - `vol05_scene01_light_trail.png` through `vol05_scene16_sunset_walk_home.png`
-- `vol06_cover_wind.png` through `vol10_cover_hail.png`
+- `vol06_cover_wind.png`
+- `vol06_scene01_empty_mirror.png` through `vol06_scene16_wind_to_reader.png`
+- `vol07_cover_snowflake.png`
+- `vol07_scene01_cloud_factory.png` through `vol07_scene16_child_snowflake_final.png`
+- `vol08_cover_rainbow.png` through `vol10_cover_hail.png`
 - `vol11_special_cover_festival.png`
 
 ## Project scope note
 
-The `01_weather` source manuscripts contain 191 explicit illustration directions across all volumes. This folder currently contains the complete cover set plus complete Vol01 through Vol05 interior scene sets. Remaining interior scenes for Vol06 through Vol11 are not generated yet.
+The `01_weather` source manuscripts contain 191 explicit illustration directions across all volumes. This folder currently contains the complete cover set plus complete Vol01 through Vol07 interior scene sets. Remaining interior scenes for Vol08 through Vol11 are not generated yet.
 
 ## Generation constraints used
 
