@@ -3,6 +3,13 @@
  * storybook.css 의 변수/기본값 위에 얹어 쓴다
  * ============================================================ */
 
+/* 책장은 일반 문서처럼 세로 스크롤 — 뷰어용 overflow:hidden 해제 */
+body {
+  overflow: auto;
+  height: auto;
+  min-height: 100%;
+}
+
 .lib-header {
   text-align: center;
   padding: 56px 20px 30px;

@@ -4,7 +4,7 @@
  * - 삽화는 한 번 본 페이지부터 캐시 (cache-first)
  * - 새 책을 추가하면 아래 CACHE_VERSION 을 올려야 셸이 갱신됨
  * ============================================================ */
-var CACHE_VERSION = "storybook-v1";
+var CACHE_VERSION = "storybook-v2";
 
 var SHELL = [
   "./",
