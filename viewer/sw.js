@@ -4,7 +4,7 @@
  * - 삽화는 한 번 본 페이지부터 캐시 (cache-first)
  * - 새 책을 추가하면 아래 CACHE_VERSION 을 올려야 셸이 갱신됨
  * ============================================================ */
-var CACHE_VERSION = "storybook-v2";
+var CACHE_VERSION = "storybook-v3";
 
 var SHELL = [
   "./",
@@ -27,7 +27,10 @@ var SHELL = [
 self.addEventListener("install", function (e) {
   e.waitUntil(
     caches.open(CACHE_VERSION).then(function (cache) {
-      return cache.addAll(SHELL);
+      // HTTP 캐시를 우회해 항상 서버의 최신 셸을 담는다
+      return cache.addAll(SHELL.map(function (url) {
+        return new Request(url, { cache: "reload" });
+      }));
     }).then(function () { return self.skipWaiting(); })
   );
 });

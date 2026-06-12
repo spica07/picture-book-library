@@ -116,6 +116,7 @@
       "      <ul>" +
       "        <li><strong>읽은 후 질문</strong> " + guide.question + "</li>" +
       "        <li><strong>연계 활동</strong> " + guide.activity + "</li>" +
+      (guide.science ? "        <li><strong>과학 포인트</strong> " + guide.science + "</li>" : "") +
       "        <li><strong>핵심 메시지</strong> " + guide.message + "</li>" +
       "      </ul>" +
       "    </div>" +
