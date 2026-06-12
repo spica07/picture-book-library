@@ -288,10 +288,14 @@
       return;
     }
     function pickVoice() {
-      var voices = speechSynthesis.getVoices();
+      var voices = speechSynthesis.getVoices().filter(function (v) {
+        return v.lang && v.lang.indexOf("ko") === 0;
+      });
+      // 자연스러운 신경망 계열(Google/Neural/Natural 등)을 우선 선택,
+      // 없으면 기기에 있는 첫 한국어 음성 사용 (예: Windows의 Heami)
       koVoice =
-        voices.find(function (v) { return v.lang === "ko-KR"; }) ||
-        voices.find(function (v) { return v.lang && v.lang.indexOf("ko") === 0; }) ||
+        voices.find(function (v) { return /google|neural|natural|premium|online/i.test(v.name); }) ||
+        voices[0] ||
         null;
     }
     pickVoice();
