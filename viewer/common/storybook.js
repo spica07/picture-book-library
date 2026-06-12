@@ -73,8 +73,23 @@
     state.texts.push("끝. " + book.backCoverQuote);
   }
 
-  function imgUrl(file) {
+  function originalImgUrl(file) {
     return book.imageBase + file;
+  }
+
+  function webImgUrl(file) {
+    var base = book.webImageBase || book.imageBase.replace(/illustrations_16x9\/$/, "illustrations_web/");
+    return base + file.replace(/\.(png|jpe?g)$/i, ".webp");
+  }
+
+  function imgUrl(file) {
+    return webImgUrl(file);
+  }
+
+  function imgFallbackAttr(file) {
+    var original = originalImgUrl(file);
+    if (imgUrl(file) === original) return "";
+    return ' onerror="this.onerror=null;this.src=\'' + original + '\'"';
   }
 
   function slideHtml(page) {
@@ -82,7 +97,7 @@
       return (
         '<section class="sb-slide sb-cover">' +
         '  <figure class="sb-figure">' +
-        '    <img class="sb-img" src="' + imgUrl(book.cover) + '" alt="' + book.title + ' 표지">' +
+        '    <img class="sb-img" src="' + imgUrl(book.cover) + '" alt="' + book.title + ' 표지"' + imgFallbackAttr(book.cover) + '>' +
         "  </figure>" +
         '  <div class="sb-cover-text">' +
         '    <p class="sb-series">' + book.series + " · " + book.volume + "</p>" +
@@ -97,7 +112,7 @@
       return (
         '<section class="sb-slide sb-scene">' +
         '  <figure class="sb-figure">' +
-        '    <img class="sb-img" src="' + imgUrl(page.scene.image) + '" alt="장면 ' + page.num + '" loading="lazy">' +
+        '    <img class="sb-img" src="' + imgUrl(page.scene.image) + '" alt="장면 ' + page.num + '" loading="lazy"' + imgFallbackAttr(page.scene.image) + '>' +
         "  </figure>" +
         '  <div class="sb-text">' +
         page.scene.text.split("\n").map(function (line) { return "<p>" + line + "</p>"; }).join("") +

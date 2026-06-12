@@ -2,3 +2,10 @@
 .playwright-mcp/
 Thumbs.db
 desktop.ini
+tmp/
+
+# 원본 제작 소스는 로컬에만 보관하고 원격 저장소에는 올리지 않는다.
+[0-9][0-9]_*/illustrations_16x9/
+[0-9][0-9]_/*.md
+[0-9][0-9]_*/**/*.md
+future_series_ideas.md
