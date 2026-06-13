@@ -42,7 +42,7 @@ HTML/CSS/JS 공통 소스는 `common/`에 한 번만 있고, 책은 **데이터 
      title: "번쩍번쩍 번개",
      age: "5~7세",
      lesson: "함께 가는 즐거움",
-     imageBase: "../01_weather/illustrations_16x9/",  // 삽화 폴더 (viewer/ 기준 상대경로)
+    imageBase: "../01_weather/illustrations_16x9/",  // 원본 PNG 폴더. 뷰어는 illustrations_web/*.webp를 먼저 로드하고 실패 시 PNG로 폴백
      cover: "vol05_cover_lightning.png",
      backCoverQuote: "뒷표지 문구",
      parentGuide: { question: "…", activity: "…", message: "…" },
@@ -60,5 +60,5 @@ HTML/CSS/JS 공통 소스는 `common/`에 한 번만 있고, 책은 **데이터 
 
 ## 현재 상태
 
-- 읽기 가능: 날씨 친구들 1~5권 (삽화 완성분)
-- 준비 중 표시: 6~10권 + 특별판 (표지만 생성됨 — 본문 삽화 생성 후 데이터 파일 추가)
+- 읽기 가능: 날씨 친구들 1~10권 + 특별판, 달님이 이야기 1~2권
+- 날씨 친구들 삽화: 원본 PNG는 `01_weather/illustrations_16x9/`, 웹 표시용 WebP는 `01_weather/illustrations_web/`

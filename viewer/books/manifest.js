@@ -27,11 +27,11 @@ window.LIBRARY = [
       { id: "weather-vol08", volume: "8권", title: "일곱 빛깔 무지개", lesson: "화해와 갈등 해결",
         cover: "../01_weather/illustrations_web/vol08_cover_rainbow.webp", available: true },
       { id: "weather-vol09", volume: "9권", title: "뿌연 안개", lesson: "천천히 가도 괜찮아",
-        cover: "../01_weather/illustrations_web/vol09_cover_fog.webp", available: false },
+        cover: "../01_weather/illustrations_web/vol09_cover_fog.webp", available: true },
       { id: "weather-vol10", volume: "10권", title: "차가운 우박이", lesson: "겉모습과 속마음",
-        cover: "../01_weather/illustrations_web/vol10_cover_hail.webp", available: false },
+        cover: "../01_weather/illustrations_web/vol10_cover_hail.webp", available: true },
       { id: "weather-vol11", volume: "특별판", title: "하늘 마을 큰 잔치", lesson: "모두 함께라서 좋아",
-        cover: "../01_weather/illustrations_web/vol11_special_cover_festival.webp", available: false }
+        cover: "../01_weather/illustrations_web/vol11_special_cover_festival.webp", available: true }
     ]
   },
   {

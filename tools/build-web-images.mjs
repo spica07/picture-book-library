@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
+import { createRequire } from "node:module";
 import { spawnSync } from "node:child_process";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -8,6 +9,22 @@ const viewerDir = path.join(root, "viewer");
 const manifestFile = path.join(viewerDir, "books", "manifest.js");
 const maxWidth = Number(process.env.WEB_IMAGE_WIDTH || 1280);
 const quality = Number(process.env.WEB_IMAGE_QUALITY || 82);
+const require = createRequire(import.meta.url);
+
+function loadSharp() {
+  const candidates = [
+    "sharp",
+    path.join(root, "tmp", "web-image-tools", "node_modules", "sharp"),
+  ];
+  for (const candidate of candidates) {
+    try {
+      return require(candidate);
+    } catch (err) {
+      // Try the next local tool location.
+    }
+  }
+  return null;
+}
 
 function loadManifest() {
   const context = { window: {} };
@@ -67,6 +84,7 @@ for (const series of library) {
 
 let converted = 0;
 let skipped = 0;
+const sharp = loadSharp();
 
 for (const [source, target] of assets) {
   fs.mkdirSync(path.dirname(target), { recursive: true });
@@ -77,19 +95,26 @@ for (const [source, target] of assets) {
     continue;
   }
 
-  const result = spawnSync("ffmpeg", [
-    "-y",
-    "-v", "error",
-    "-i", source,
-    "-vf", `scale=w='min(${maxWidth},iw)':h=-2`,
-    "-c:v", "libwebp",
-    "-quality", String(quality),
-    "-compression_level", "6",
-    target,
-  ], { stdio: "inherit" });
+  if (sharp) {
+    await sharp(source)
+      .resize({ width: maxWidth, withoutEnlargement: true })
+      .webp({ quality, effort: 6 })
+      .toFile(target);
+  } else {
+    const result = spawnSync("ffmpeg", [
+      "-y",
+      "-v", "error",
+      "-i", source,
+      "-vf", `scale=w='min(${maxWidth},iw)':h=-2`,
+      "-c:v", "libwebp",
+      "-quality", String(quality),
+      "-compression_level", "6",
+      target,
+    ], { stdio: "inherit" });
 
-  if (result.status !== 0) {
-    throw new Error(`ffmpeg failed for ${source}`);
+    if (result.status !== 0) {
+      throw new Error(`ffmpeg failed for ${source}`);
+    }
   }
   converted += 1;
 }
