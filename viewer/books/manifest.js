@@ -73,7 +73,11 @@ window.LIBRARY = [
       { id: "solar-vol08", volume: "8권", title: "거꾸로 천왕성이", lesson: "남과 달라도 나만의 방식이 있어",
         cover: "../03_solar_system/illustrations_web/vol08_cover_uranus.webp", available: true },
       { id: "solar-vol09", volume: "9권", title: "멀리 있는 해왕성이", lesson: "멀리 있어도 마음은 가까운 우정",
-        cover: "../03_solar_system/illustrations_web/vol09_cover_neptune.webp", available: true }
+        cover: "../03_solar_system/illustrations_web/vol09_cover_neptune.webp", available: true },
+      { id: "solar-vol10", volume: "10권", title: "작아도 괜찮아 명왕성이", lesson: "이름표가 바뀌어도 나의 가치는 그대로",
+        cover: "../03_solar_system/illustrations_web/vol10_cover_pluto.webp", available: true },
+      { id: "solar-vol11", volume: "통합편", title: "태양계 대운동회", lesson: "서로 다른 재능이 모이면 멋진 하나가 돼",
+        cover: "../03_solar_system/illustrations_web/vol11_special_cover_sports_day.webp", available: true }
     ]
   },
   {
@@ -97,7 +101,9 @@ window.LIBRARY = [
       { id: "ocean-vol08", volume: "8권", title: "다시 자라는 불가사리", lesson: "아파도 다시 회복할 수 있다는 믿음",
         cover: "../04_ocean/illustrations_web/vol08_cover_regrowing_starfish.webp", available: true },
       { id: "ocean-vol09", volume: "9권", title: "바다의 아파트, 산호 마을", lesson: "우리가 사는 곳을 함께 지키기 (환경)",
-        cover: "../04_ocean/illustrations_web/vol09_cover_coral_apartment.webp", available: true }
+        cover: "../04_ocean/illustrations_web/vol09_cover_coral_apartment.webp", available: true },
+      { id: "ocean-vol10", volume: "10권", title: "깜깜한 바다의 등불, 아귀", lesson: "어둠 속에도 빛은 있다",
+        cover: "../04_ocean/illustrations_web/vol10_cover_deep_sea_anglerfish.webp", available: true }
     ]
   },
   {
@@ -109,7 +115,27 @@ window.LIBRARY = [
       { id: "animals-vol02", volume: "2권", title: "밤의 파수꾼 부엉이 부리", lesson: "나의 시간, 나의 역할이 있어",
         cover: "../05_animals/illustrations_web/vol02_cover_night_watch_owl.webp", available: true },
       { id: "animals-vol03", volume: "3권", title: "귀가 큰 토끼 토토", lesson: "조심성도 소중한 능력",
-        cover: "../05_animals/illustrations_web/vol03_cover_big_ears_rabbit.webp", available: true }
+        cover: "../05_animals/illustrations_web/vol03_cover_big_ears_rabbit.webp", available: true },
+      { id: "animals-vol04", volume: "4권", title: "안아 주고 싶은 고슴도치 치치", lesson: "내 방식대로 마음을 전하면 돼",
+        cover: "../05_animals/illustrations_web/vol04_cover_hedgehog_apples.webp", available: true }
+    ]
+  },
+  {
+    series: "쿵쿵 공룡 마을 친구들",
+    seriesIcon: "🦖",
+    books: [
+      { id: "dinosaurs-vol01", volume: "1권", title: "무서운 게 아니야, 티노", lesson: "힘은 누군가를 지키는 데 쓰는 것",
+        cover: "../06_dinosaurs/illustrations_web/vol01_cover_tino.webp", available: true }
+    ]
+  },
+  {
+    series: "마음 마을 친구들",
+    seriesIcon: "💛",
+    books: [
+      { id: "emotions-vol01", volume: "1권", title: "반짝반짝 기쁨이", lesson: "작은 기쁨 찾기",
+        cover: "../07_emotions/illustrations_web/vol01_cover_joy.webp", available: true },
+      { id: "emotions-vol02", volume: "2권", title: "파랑파랑 슬픔이", lesson: "울어도 괜찮아",
+        cover: "../07_emotions/illustrations_web/vol02_cover_sadness.webp", available: true }
     ]
   }
 ];
