@@ -51,5 +51,65 @@ window.LIBRARY = [
       { id: "moon-vol06", volume: "통합편", title: "달님이의 한 달 여행", lesson: "변화의 순환 — 모든 모습의 나가 소중해",
         cover: "../02_moon/illustrations_web/vol06_cover_journey.webp", available: true }
     ]
+  },
+  {
+    series: "반짝반짝 태양계 친구들",
+    seriesIcon: "🪐",
+    books: [
+      { id: "solar-vol01", volume: "1권", title: "뜨거운 마음 태양이", lesson: "보이지 않는 곳에서 모두를 돌보는 사랑",
+        cover: "../03_solar_system/illustrations_web/vol01_cover_sun.webp", available: true },
+      { id: "solar-vol02", volume: "2권", title: "빨리빨리 수성이", lesson: "차분함 — 천천히 해야 잘되는 일이 있어",
+        cover: "../03_solar_system/illustrations_web/vol02_cover_mercury.webp", available: true },
+      { id: "solar-vol03", volume: "3권", title: "반짝이는 금성이", lesson: "겉모습보다 솔직한 마음",
+        cover: "../03_solar_system/illustrations_web/vol03_cover_venus.webp", available: true },
+      { id: "solar-vol04", volume: "4권", title: "초록빛 지구", lesson: "우리 집(지구)의 소중함, 환경 사랑",
+        cover: "../03_solar_system/illustrations_web/vol04_cover_earth.webp", available: true },
+      { id: "solar-vol05", volume: "5권", title: "궁금쟁이 화성이", lesson: "호기심과 탐험 정신",
+        cover: "../03_solar_system/illustrations_web/vol05_cover_mars.webp", available: true },
+      { id: "solar-vol06", volume: "6권", title: "듬직한 목성이", lesson: "큰 몸은 누군가를 지키는 힘",
+        cover: "../03_solar_system/illustrations_web/vol06_cover_jupiter.webp", available: true },
+      { id: "solar-vol07", volume: "7권", title: "멋쟁이 토성이", lesson: "자랑보다 겸손, 진짜 멋은 마음에서",
+        cover: "../03_solar_system/illustrations_web/vol07_cover_saturn.webp", available: true },
+      { id: "solar-vol08", volume: "8권", title: "거꾸로 천왕성이", lesson: "남과 달라도 나만의 방식이 있어",
+        cover: "../03_solar_system/illustrations_web/vol08_cover_uranus.webp", available: true },
+      { id: "solar-vol09", volume: "9권", title: "멀리 있는 해왕성이", lesson: "멀리 있어도 마음은 가까운 우정",
+        cover: "../03_solar_system/illustrations_web/vol09_cover_neptune.webp", available: true }
+    ]
+  },
+  {
+    series: "파도 너머 바다 친구들",
+    seriesIcon: "🌊",
+    books: [
+      { id: "ocean-vol01", volume: "1권", title: "아기 거북 바다의 첫 헤엄", lesson: "처음의 두려움을 이기는 용기",
+        cover: "../04_ocean/illustrations_web/vol01_cover_first_swim.webp", available: true },
+      { id: "ocean-vol02", volume: "2권", title: "여덟 팔 문어 아저씨", lesson: "도움의 손길은 많을수록 좋아",
+        cover: "../04_ocean/illustrations_web/vol02_cover_octopus_helper.webp", available: true },
+      { id: "ocean-vol03", volume: "3권", title: "노래하는 고래 할머니", lesson: "마음을 전하는 따뜻한 소리",
+        cover: "../04_ocean/illustrations_web/vol03_cover_grandmother_whale.webp", available: true },
+      { id: "ocean-vol04", volume: "4권", title: "아빠 해마의 포근한 주머니", lesson: "가족의 사랑은 여러 모습",
+        cover: "../04_ocean/illustrations_web/vol04_cover_father_seahorse.webp", available: true },
+      { id: "ocean-vol05", volume: "5권", title: "말미잘 집의 흰동가리", lesson: "서로 다른 친구도 도우며 살아 (공생)",
+        cover: "../04_ocean/illustrations_web/vol05_cover_clownfish_anemone.webp", available: true },
+      { id: "ocean-vol06", volume: "6권", title: "사실은 수줍은 상어 아저씨", lesson: "겉모습으로 판단하지 않기",
+        cover: "../04_ocean/illustrations_web/vol06_cover_shy_shark.webp", available: true },
+      { id: "ocean-vol07", volume: "7권", title: "둥실둥실 해파리 언니", lesson: "흐름에 몸을 맡기는 여유",
+        cover: "../04_ocean/illustrations_web/vol07_cover_jellyfish_sister.webp", available: true },
+      { id: "ocean-vol08", volume: "8권", title: "다시 자라는 불가사리", lesson: "아파도 다시 회복할 수 있다는 믿음",
+        cover: "../04_ocean/illustrations_web/vol08_cover_regrowing_starfish.webp", available: true },
+      { id: "ocean-vol09", volume: "9권", title: "바다의 아파트, 산호 마을", lesson: "우리가 사는 곳을 함께 지키기 (환경)",
+        cover: "../04_ocean/illustrations_web/vol09_cover_coral_apartment.webp", available: true }
+    ]
+  },
+  {
+    series: "도토리 숲 동물 친구들",
+    seriesIcon: "🐿️",
+    books: [
+      { id: "animals-vol01", volume: "1권", title: "도토리 부자 다람쥐 또리", lesson: "나눔과 준비성",
+        cover: "../05_animals/illustrations_web/vol01_cover_acorn_squirrel.webp", available: true },
+      { id: "animals-vol02", volume: "2권", title: "밤의 파수꾼 부엉이 부리", lesson: "나의 시간, 나의 역할이 있어",
+        cover: "../05_animals/illustrations_web/vol02_cover_night_watch_owl.webp", available: true },
+      { id: "animals-vol03", volume: "3권", title: "귀가 큰 토끼 토토", lesson: "조심성도 소중한 능력",
+        cover: "../05_animals/illustrations_web/vol03_cover_big_ears_rabbit.webp", available: true }
+    ]
   }
 ];
