@@ -19,11 +19,13 @@
   };
 
   var state = {
-    pages: [],     // {type: 'cover'|'scene'|'back', ...}
-    texts: [],     // 페이지별 읽어주기용 문장
-    index: 0,
-    speaking: false,
-    autoRead: false
+    pages: [],     // {type: 'cover'|'scene'|'back', lines: [...] }
+    texts: [],     // 페이지별 읽어주기용 전체 문장 (접근성/폴백)
+    index: 0,      // 현재 페이지(장)
+    lineIndex: 0,  // 현재 장 안에서 보여줄 문장 번호
+    speaking: false, // 지금 한 문장을 소리내어 읽는 중
+    reading: false,  // 문장을 이어서 낭독하는 중 (읽기/자동읽기)
+    autoRead: false  // 장 끝나면 다음 장으로 자동 진행
   };
 
   var el = {}; // 캐시된 DOM 요소
@@ -66,7 +68,11 @@
     state.pages = [{ type: "cover" }];
     state.texts = [book.series + " " + book.volume + ", " + book.title + "."];
     book.scenes.forEach(function (scene, i) {
-      state.pages.push({ type: "scene", scene: scene, num: i + 1 });
+      // 한 장면 텍스트를 줄 단위 "문장"으로 나눠 한 문장씩 보여준다
+      var lines = scene.text.split("\n").map(function (s) { return s.trim(); })
+        .filter(function (s) { return s.length; });
+      if (!lines.length) lines = [scene.text.trim()];
+      state.pages.push({ type: "scene", scene: scene, num: i + 1, lines: lines });
       state.texts.push(scene.text.replace(/\n/g, " "));
     });
     state.pages.push({ type: "back" });
@@ -115,7 +121,9 @@
         '    <img class="sb-img" src="' + imgUrl(page.scene.image) + '" alt="장면 ' + page.num + '" loading="lazy"' + imgFallbackAttr(page.scene.image) + '>' +
         "  </figure>" +
         '  <div class="sb-text">' +
-        page.scene.text.split("\n").map(function (line) { return "<p>" + line + "</p>"; }).join("") +
+        page.lines.map(function (line, i) {
+          return '<p class="sb-line' + (i === 0 ? " sb-line-active" : "") + '" data-line="' + i + '">' + line + "</p>";
+        }).join("") +
         "  </div>" +
         "</section>"
       );
@@ -178,8 +186,9 @@
     el.read = document.getElementById("sb-read");
     el.auto = document.getElementById("sb-auto");
 
-    el.prev.addEventListener("click", function () { go(state.index - 1); });
-    el.next.addEventListener("click", function () { go(state.index + 1); });
+    // 좌우 버튼·키보드는 문장 단위로 진행한다 (장 끝에서 다음 장으로)
+    el.prev.addEventListener("click", function () { stepBack(); });
+    el.next.addEventListener("click", function () { stepForward(); });
 
     // 슬라이드 안의 버튼 (읽기 시작 / 다시 읽기)
     el.track.addEventListener("click", function (e) {
@@ -190,8 +199,8 @@
     });
 
     document.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowRight") go(state.index + 1);
-      if (e.key === "ArrowLeft") go(state.index - 1);
+      if (e.key === "ArrowRight") stepForward();
+      if (e.key === "ArrowLeft") stepBack();
     });
 
     initDrag();
@@ -199,13 +208,57 @@
     update(true);
   }
 
+  function curPage() { return state.pages[state.index]; }
+  function curLines() { var p = curPage(); return (p && p.lines) ? p.lines : null; }
+
+  // 페이지(장) 단위 이동 — 첫 문장부터 시작
   function go(index) {
     if (index < 0 || index >= state.pages.length || index === state.index) {
       update(); // 범위 밖이면 제자리로 스냅백
       return;
     }
     state.index = index;
+    state.lineIndex = 0;
     update();
+  }
+
+  // 앞으로: 같은 장에 남은 문장이 있으면 다음 문장, 없으면 다음 장
+  function stepForward() {
+    var lines = curLines();
+    if (lines && state.lineIndex < lines.length - 1) {
+      state.lineIndex++;
+      renderLines();
+      updateNavDisabled();
+      if (state.reading) speakLine();
+    } else {
+      go(state.index + 1);
+    }
+  }
+  // 뒤로: 장 안의 이전 문장, 첫 문장이면 이전 장
+  function stepBack() {
+    if (state.lineIndex > 0) {
+      state.lineIndex--;
+      renderLines();
+      updateNavDisabled();
+      if (state.reading) speakLine();
+    } else {
+      go(state.index - 1);
+    }
+  }
+
+  // 현재 장에서 지금 문장 하나만 보이게 한다
+  function renderLines() {
+    var slide = el.track.children[state.index];
+    if (!slide) return;
+    var lines = slide.querySelectorAll(".sb-line");
+    for (var i = 0; i < lines.length; i++) {
+      lines[i].classList.toggle("sb-line-active", i === state.lineIndex);
+    }
+  }
+
+  function updateNavDisabled() {
+    el.prev.disabled = state.index === 0 && state.lineIndex === 0;
+    el.next.disabled = state.index === state.pages.length - 1;
   }
 
   function update(instant) {
@@ -214,17 +267,18 @@
 
     el.count.textContent = (state.index + 1) + " / " + state.pages.length;
     el.bar.style.width = ((state.index + 1) / state.pages.length * 100) + "%";
-    el.prev.disabled = state.index === 0;
-    el.next.disabled = state.index === state.pages.length - 1;
+    updateNavDisabled();
 
+    renderLines();
     preloadNeighbors();
 
     // 페이지가 바뀌면 진행 중이던 낭독을 멈추고,
-    // 자동 읽기 모드면 전환 애니메이션 후 새 페이지를 읽는다
-    stopSpeech();
-    if (state.autoRead && !instant) {
+    // 낭독 중이면 전환 애니메이션 후 새 장의 첫 문장부터 읽는다
+    if ("speechSynthesis" in window) speechSynthesis.cancel();
+    setSpeaking(false);
+    if (state.reading && !instant) {
       setTimeout(function () {
-        if (state.autoRead) speakCurrent();
+        if (state.reading) speakLine();
       }, 550);
     }
   }
@@ -275,9 +329,9 @@
       if (!drag.on) return;
       drag.on = false;
       if (Math.abs(drag.dx) > drag.width * 0.15) {
-        go(state.index + (drag.dx < 0 ? 1 : -1)); // 스와이프: 민 방향으로
+        go(state.index + (drag.dx < 0 ? 1 : -1)); // 확실한 스와이프: 장 단위로 점프
       } else if (Math.abs(drag.dx) < 8 && Math.abs(drag.dy) < 8) {
-        go(state.index + 1); // 탭/클릭: 다음 장으로
+        stepForward(); // 탭/클릭: 다음 문장으로 (장 끝이면 다음 장)
       } else {
         update(); // 어중간한 드래그: 제자리로 스냅백
       }
@@ -317,16 +371,17 @@
     speechSynthesis.addEventListener("voiceschanged", pickVoice);
 
     el.read.addEventListener("click", function () {
-      if (state.speaking) stopSpeech();
-      else speakCurrent();
+      // 이 장을 문장 단위로 이어 읽기 (장 끝에서 멈춤)
+      if (state.reading) stopReading();
+      else { state.reading = true; speakLine(); }
     });
 
     el.auto.addEventListener("click", function () {
       state.autoRead = !state.autoRead;
       el.auto.classList.toggle("sb-on", state.autoRead);
       el.auto.textContent = state.autoRead ? "⏸ 자동 읽기" : "▶ 자동 읽기";
-      if (state.autoRead) speakCurrent();
-      else stopSpeech();
+      if (state.autoRead) { state.reading = true; speakLine(); }
+      else stopReading();
     });
 
     // 페이지를 떠날 때 낭독 정리
@@ -335,31 +390,52 @@
     });
   }
 
-  function speakCurrent() {
-    stopSpeech();
-    var u = new SpeechSynthesisUtterance(state.texts[state.index]);
+  // 현재 장의 현재 문장 하나를 읽는다 (cover/back은 페이지 전체 문장)
+  function speakLine() {
+    if (!("speechSynthesis" in window)) return;
+    speechSynthesis.cancel();
+    var lines = curLines();
+    var text = lines ? lines[state.lineIndex] : state.texts[state.index];
+    if (!text) { setSpeaking(false); if (state.reading) advanceAfterSpeak(); return; }
+    var u = new SpeechSynthesisUtterance(text);
     u.lang = "ko-KR";
     if (koVoice) u.voice = koVoice;
     u.rate = 0.95; // 아이가 따라 듣기 좋은 속도
     u.pitch = 1.05;
     u.onend = function () {
       setSpeaking(false);
-      // 자동 읽기: 다 읽으면 다음 장으로 (마지막 장이면 종료)
-      if (state.autoRead) {
-        if (state.index < state.pages.length - 1) {
-          setTimeout(function () {
-            if (state.autoRead) go(state.index + 1);
-          }, 700);
-        } else {
-          state.autoRead = false;
-          el.auto.classList.remove("sb-on");
-          el.auto.textContent = "▶ 자동 읽기";
-        }
-      }
+      if (state.reading) advanceAfterSpeak();
     };
     u.onerror = function () { setSpeaking(false); };
     setSpeaking(true);
     speechSynthesis.speak(u);
+  }
+
+  // 한 문장을 다 읽은 뒤: 같은 장 다음 문장 → 없으면 (자동읽기 시) 다음 장
+  function advanceAfterSpeak() {
+    var lines = curLines();
+    if (lines && state.lineIndex < lines.length - 1) {
+      state.lineIndex++;
+      renderLines();
+      updateNavDisabled();
+      setTimeout(function () { if (state.reading) speakLine(); }, 250);
+      return;
+    }
+    if (state.autoRead && state.index < state.pages.length - 1) {
+      setTimeout(function () { if (state.reading) go(state.index + 1); }, 650);
+    } else {
+      stopReading();
+      if (state.autoRead) {
+        state.autoRead = false;
+        el.auto.classList.remove("sb-on");
+        el.auto.textContent = "▶ 자동 읽기";
+      }
+    }
+  }
+
+  function stopReading() {
+    state.reading = false;
+    stopSpeech();
   }
 
   function stopSpeech() {
@@ -370,8 +446,10 @@
   function setSpeaking(on) {
     state.speaking = on;
     if (el.read) {
-      el.read.textContent = on ? "⏹ 멈춤" : "🔊 읽기";
-      el.read.classList.toggle("sb-on", on);
+      // 문장 사이 짧은 공백에도 낭독 중(reading)이면 멈춤 버튼을 유지
+      var active = on || state.reading;
+      el.read.textContent = active ? "⏹ 멈춤" : "🔊 읽기";
+      el.read.classList.toggle("sb-on", active);
     }
   }
 })();
