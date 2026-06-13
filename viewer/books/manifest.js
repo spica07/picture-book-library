@@ -41,7 +41,15 @@ window.LIBRARY = [
       { id: "moon-vol01", volume: "1권", title: "가느다란 초승달", lesson: "작은 시작도 아름답다",
         cover: "../02_moon/illustrations_web/vol01_cover_crescent.webp", available: true },
       { id: "moon-vol02", volume: "2권", title: "반쪽이 상현달", lesson: "지금은 자라는 중 — 과정의 가치",
-        cover: "../02_moon/illustrations_web/vol02_cover_first_quarter.webp", available: true }
+        cover: "../02_moon/illustrations_web/vol02_cover_first_quarter.webp", available: true },
+      { id: "moon-vol03", volume: "3권", title: "둥근 보름달", lesson: "가득 찼을 때 나누는 마음",
+        cover: "../02_moon/illustrations_web/vol03_cover_full_moon.webp", available: true },
+      { id: "moon-vol04", volume: "4권", title: "느긋한 하현달", lesson: "줄어드는 것도 자연스러워 — 쉼과 내려놓음",
+        cover: "../02_moon/illustrations_web/vol04_cover_last_quarter.webp", available: true },
+      { id: "moon-vol05", volume: "5권", title: "새벽의 그믐달", lesson: "끝은 새로운 시작",
+        cover: "../02_moon/illustrations_web/vol05_cover_waning_crescent.webp", available: true },
+      { id: "moon-vol06", volume: "통합편", title: "달님이의 한 달 여행", lesson: "변화의 순환 — 모든 모습의 나가 소중해",
+        cover: "../02_moon/illustrations_web/vol06_cover_journey.webp", available: true }
     ]
   }
 ];
