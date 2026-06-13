@@ -89,6 +89,7 @@
   }
 
   function imgUrl(file) {
+    if (book && book.preferOriginalImages) return originalImgUrl(file);
     return webImgUrl(file);
   }
 
@@ -390,12 +391,24 @@
     });
   }
 
+  // 낭독용으로 텍스트를 다듬는다 — 자막 표시는 원문 그대로 두고 읽기만 정제.
+  // 물결표(~/～)는 늘임·여운 표시, ♪ 등 음표 기호는 음성 합성기가
+  // "물결"·"음표"처럼 엉뚱하게 읽으므로 공백으로 치환해 건너뛴다.
+  function forSpeech(raw) {
+    return raw
+      .replace(/[~～〜]+/g, "")
+      .replace(/[♪♫♬♩◌]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
   // 현재 장의 현재 문장 하나를 읽는다 (cover/back은 페이지 전체 문장)
   function speakLine() {
     if (!("speechSynthesis" in window)) return;
     speechSynthesis.cancel();
     var lines = curLines();
-    var text = lines ? lines[state.lineIndex] : state.texts[state.index];
+    var raw = lines ? lines[state.lineIndex] : state.texts[state.index];
+    var text = forSpeech(raw || "");
     if (!text) { setSpeaking(false); if (state.reading) advanceAfterSpeak(); return; }
     var u = new SpeechSynthesisUtterance(text);
     u.lang = "ko-KR";
