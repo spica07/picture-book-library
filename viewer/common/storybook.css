@@ -125,14 +125,16 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; /* 그림+자막 묶음을 세로 가운데로 → 둘 사이만 붙고 여백은 위아래로 */
   padding: 4px 70px 18px;
   user-select: none;
   -webkit-user-select: none;
 }
 
-/* 그림: 남는 공간을 전부 차지해 최대한 크게 */
+/* 그림: 그림 크기만큼만 차지(남는 세로를 먹지 않음) → 자막이 그림 바로 아래에 붙는다.
+   max-height/max-width 로 가능한 최대 크기는 그대로 유지 */
 .sb-figure {
-  flex: 1;
+  flex: 0 1 auto;
   min-height: 0;
   width: 100%;
   display: flex;
@@ -152,6 +154,10 @@ body {
 }
 
 /* ---------- 표지 ---------- */
+
+/* 표지는 그림이 남는 세로를 차지하고 제목·버튼이 그 아래에 놓인다
+   (자막을 그림에 붙이는 처리는 본문 장면 .sb-scene 에만 적용) */
+.sb-cover .sb-figure { flex: 1; }
 
 .sb-cover .sb-cover-text {
   text-align: center;
@@ -323,13 +329,6 @@ body {
 }
 .sb-error h1 { margin-bottom: 12px; }
 .sb-error p { color: var(--ink-soft); margin-bottom: 24px; line-height: 1.6; }
-
-/* 세로 화면(태블릿·폰 세로 모드): 그림이 가로폭에 묶여 작아지므로
-   그림+글을 세로 가운데로 모아 들뜬 여백을 없앤다 */
-@media (orientation: portrait) {
-  .sb-slide { justify-content: center; }
-  .sb-figure { flex: 0 1 auto; }
-}
 
 /* ---------- 태블릿 (1024px 이하) ---------- */
 
