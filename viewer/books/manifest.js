@@ -117,7 +117,9 @@ window.LIBRARY = [
       { id: "animals-vol03", volume: "3권", title: "귀가 큰 토끼 토토", lesson: "조심성도 소중한 능력",
         cover: "../05_animals/illustrations_web/vol03_cover_big_ears_rabbit.webp", available: true },
       { id: "animals-vol04", volume: "4권", title: "안아 주고 싶은 고슴도치 치치", lesson: "내 방식대로 마음을 전하면 돼",
-        cover: "../05_animals/illustrations_web/vol04_cover_hedgehog_apples.webp", available: true }
+        cover: "../05_animals/illustrations_web/vol04_cover_hedgehog_apples.webp", available: true },
+      { id: "animals-vol05", volume: "5권", title: "거짓말한 여우 여울이", lesson: "정직과 신뢰",
+        cover: "../05_animals/illustrations_web/vol05_cover_mischievous_fox.webp", available: true }
     ]
   },
   {
@@ -127,7 +129,13 @@ window.LIBRARY = [
       { id: "dinosaurs-vol01", volume: "1권", title: "무서운 게 아니야, 티노", lesson: "힘은 누군가를 지키는 데 쓰는 것",
         cover: "../06_dinosaurs/illustrations_web/vol01_cover_tino.webp", available: true },
       { id: "dinosaurs-vol02", volume: "2권", title: "뿔 셋 달린 용감이, 트리케", lesson: "진짜 용기란 무서워도 나서는 것",
-        cover: "../06_dinosaurs/illustrations_web/vol02_cover_trike.webp", available: true }
+        cover: "../06_dinosaurs/illustrations_web/vol02_cover_trike.webp", available: true },
+      { id: "dinosaurs-vol03", volume: "3권", title: "목이 긴 브라키, 높은 마음", lesson: "넓게 보는 마음, 다툼을 멈추는 지혜",
+        cover: "../06_dinosaurs/illustrations_web/vol03_cover_braki.webp", available: true },
+      { id: "dinosaurs-vol04", volume: "4권", title: "빠른 발 랩터 삼형제", lesson: "경쟁보다 팀워크",
+        cover: "../06_dinosaurs/illustrations_web/vol04_cover_raptor_brothers.webp", available: true },
+      { id: "dinosaurs-vol05", volume: "5권", title: "등에 지붕을 단 스테고", lesson: "느려도 든든한 존재",
+        cover: "../06_dinosaurs/illustrations_web/vol05_cover_stego_roof.webp", available: true }
     ]
   },
   {
@@ -139,7 +147,11 @@ window.LIBRARY = [
       { id: "emotions-vol02", volume: "2권", title: "파랑파랑 슬픔이", lesson: "울어도 괜찮아",
         cover: "../07_emotions/illustrations_web/vol02_cover_sadness.webp", available: true },
       { id: "emotions-vol03", volume: "3권", title: "활활 화남이", lesson: "화 다루기 3단계",
-        cover: "../07_emotions/illustrations_web/vol03_cover_anger.webp", available: true }
+        cover: "../07_emotions/illustrations_web/vol03_cover_anger.webp", available: true },
+      { id: "emotions-vol04", volume: "4권", title: "덜덜 무서움이", lesson: "무서움은 경보등",
+        cover: "../07_emotions/illustrations_web/vol04_cover_fear.webp", available: true },
+      { id: "emotions-vol05", volume: "5권", title: "발그레 부끄럼이", lesson: "한 문장부터 천천히",
+        cover: "../07_emotions/illustrations_web/vol05_cover_shyness.webp", available: true }
     ]
   }
 ];
