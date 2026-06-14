@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>반짝반짝 태양계 친구들</title>
+<meta name="theme-color" content="#ffd45a">
+<link rel="icon" href="icons/icon-192.png">
+<style>
+:root {
+  color-scheme: light;
+  --bg: #f6fbff;
+  --panel: #ffffff;
+  --ink: #172033;
+  --muted: #607086;
+  --line: #d8e4ee;
+  --sun: #ffd45a;
+  --sun-strong: #f5aa18;
+  --sky: #1f8db8;
+  --leaf: #278c67;
+  --coral: #e65f49;
+  --shadow: 0 16px 40px rgba(23, 32, 51, 0.12);
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 212, 90, 0.22), rgba(246, 251, 255, 0) 260px),
+    var(--bg);
+  color: var(--ink);
+  font-family: "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", system-ui, sans-serif;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+}
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 62px;
+  padding: 10px clamp(16px, 4vw, 42px);
+  background: rgba(246, 251, 255, 0.92);
+  border-bottom: 1px solid rgba(216, 228, 238, 0.9);
+  backdrop-filter: blur(14px);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  font-weight: 800;
+}
+.brand-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 2px solid #1d2738;
+  border-radius: 50%;
+  background: var(--sun);
+  color: #1d2738;
+  font-size: 20px;
+  line-height: 1;
+}
+.brand span:last-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.topbar-nav {
+  display: flex;
+  gap: 8px;
+  margin-left: auto;
+}
+.nav-link,
+.icon-button,
+.control-button,
+.book-button,
+.card-button {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--ink);
+  cursor: pointer;
+}
+.nav-link {
+  padding: 9px 12px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 700;
+}
+.wrap {
+  width: min(1320px, 100%);
+  margin: 0 auto;
+  padding: clamp(18px, 4vw, 36px);
+}
+.reader-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: 18px;
+}
+.eyebrow {
+  margin: 0 0 8px;
+  color: var(--sky);
+  font-size: 14px;
+  font-weight: 800;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(30px, 5vw, 58px);
+  line-height: 1.04;
+  letter-spacing: 0;
+}
+.summary {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: clamp(15px, 2vw, 18px);
+  line-height: 1.55;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  gap: 8px;
+}
+.stat {
+  min-width: 86px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.82);
+  text-align: center;
+}
+.stat strong {
+  display: block;
+  font-size: 20px;
+}
+.stat span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+.reader-shell {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 16px;
+  align-items: stretch;
+}
+.book-list {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  max-height: calc(100vh - 160px);
+  overflow: auto;
+  padding-right: 4px;
+}
+.book-button {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr);
+  gap: 10px;
+  padding: 8px;
+  text-align: left;
+}
+.book-button[aria-current="true"] {
+  border-color: #1d2738;
+  box-shadow: 0 0 0 2px rgba(255, 212, 90, 0.95) inset;
+}
+.book-thumb {
+  width: 58px;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #e7eef5;
+}
+.book-meta {
+  min-width: 0;
+}
+.book-meta small {
+  display: block;
+  color: var(--sky);
+  font-weight: 800;
+}
+.book-meta strong,
+.book-meta span {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.book-meta strong {
+  margin-top: 2px;
+  font-size: 15px;
+}
+.book-meta span {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.stage {
+  display: grid;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.stage-top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.stage-title {
+  min-width: 0;
+}
+.stage-title p,
+.stage-title h2 {
+  margin: 0;
+}
+.stage-title p {
+  color: var(--sky);
+  font-size: 13px;
+  font-weight: 800;
+}
+.stage-title h2 {
+  overflow-wrap: anywhere;
+  font-size: clamp(19px, 2.6vw, 30px);
+  letter-spacing: 0;
+}
+.progress-label {
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.progress {
+  height: 6px;
+  background: #edf3f7;
+}
+.progress span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--sun-strong), var(--leaf), var(--sky));
+}
+.image-frame {
+  display: grid;
+  place-items: center;
+  min-height: 360px;
+  padding: clamp(10px, 2vw, 18px);
+  background: #101724;
+}
+.image-frame img {
+  display: block;
+  width: min(100%, 1180px);
+  aspect-ratio: 16 / 9;
+  max-height: calc(100vh - 270px);
+  object-fit: contain;
+  border-radius: 6px;
+  background: #20283a;
+}
+.caption-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px 16px;
+  border-top: 1px solid var(--line);
+}
+.caption {
+  min-width: 0;
+}
+.caption strong,
+.caption span {
+  display: block;
+}
+.caption strong {
+  font-size: 17px;
+}
+.caption span {
+  margin-top: 3px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.controls {
+  display: flex;
+  gap: 8px;
+}
+.control-button,
+.icon-button {
+  min-width: 42px;
+  min-height: 42px;
+  padding: 0 14px;
+  font-weight: 800;
+}
+.control-button.primary {
+  border-color: #1d2738;
+  background: var(--sun);
+}
+.thumb-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 10px 12px 14px;
+  border-top: 1px solid var(--line);
+  background: #f9fcff;
+}
+.page-thumb {
+  flex: 0 0 92px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  cursor: pointer;
+}
+.page-thumb[aria-current="true"] {
+  border-color: var(--coral);
+}
+.page-thumb img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 5px;
+  background: #e7eef5;
+}
+.library {
+  margin-top: 34px;
+}
+.section-title {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.section-title h2 {
+  margin: 0;
+  font-size: 25px;
+  letter-spacing: 0;
+}
+.section-title p {
+  margin: 0;
+  color: var(--muted);
+}
+.cards {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.book-card {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+.book-card img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #e7eef5;
+}
+.book-card small {
+  color: var(--sky);
+  font-weight: 800;
+}
+.book-card h3 {
+  margin: 2px 0 0;
+  font-size: 18px;
+  letter-spacing: 0;
+}
+.book-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.card-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0 12px;
+  background: #fff8dc;
+  font-weight: 800;
+}
+@media (max-width: 980px) {
+  .reader-head,
+  .reader-shell {
+    grid-template-columns: 1fr;
+  }
+  .stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .book-list {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(240px, 1fr);
+    max-height: none;
+    overflow-x: auto;
+    padding: 0 0 4px;
+  }
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .topbar {
+    min-height: 56px;
+    padding-inline: 12px;
+  }
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+  }
+  .nav-link {
+    padding: 8px 10px;
+  }
+  .wrap {
+    padding: 16px 12px 28px;
+  }
+  .stats {
+    gap: 6px;
+  }
+  .stat {
+    min-width: 0;
+    padding: 8px 6px;
+  }
+  .stage-top,
+  .caption-row {
+    grid-template-columns: 1fr;
+  }
+  .caption-row {
+    gap: 10px;
+  }
+  .controls {
+    width: 100%;
+  }
+  .control-button {
+    flex: 1;
+  }
+  .image-frame {
+    min-height: 220px;
+    padding: 8px;
+  }
+  .image-frame img {
+    max-height: none;
+  }
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="../index.html">
+    <span class="brand-mark" aria-hidden="true">•</span>
+    <span>반짝반짝 태양계 친구들</span>
+  </a>
+  <nav class="topbar-nav" aria-label="페이지 이동">
+    <a class="nav-link" href="index.html">전체 책장</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section aria-labelledby="page-title">
+    <div class="reader-head">
+      <div>
+        <p class="eyebrow">태양계 그림책 웹 버전</p>
+        <h1 id="page-title">반짝반짝 태양계 친구들</h1>
+        <p class="summary">태양부터 명왕성, 통합 운동회까지 11권을 한 화면에서 바로 넘겨 볼 수 있습니다.</p>
+      </div>
+      <div class="stats" aria-label="시리즈 요약">
+        <div class="stat"><strong>11</strong><span>권</span></div>
+        <div class="stat"><strong>191</strong><span>그림</span></div>
+        <div class="stat"><strong>16:9</strong><span>화면</span></div>
+      </div>
+    </div>
+
+    <div class="reader-shell">
+      <aside class="book-list" id="bookList" aria-label="책 선택"></aside>
+
+      <section class="stage" aria-label="그림책 리더">
+        <div class="stage-top">
+          <div class="stage-title">
+            <p id="stageVolume"></p>
+            <h2 id="stageTitle"></h2>
+          </div>
+          <div class="progress-label" id="pageCount"></div>
+        </div>
+        <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+        <div class="image-frame">
+          <img id="pageImage" alt="">
+        </div>
+        <div class="caption-row">
+          <div class="caption">
+            <strong id="captionTitle"></strong>
+            <span id="captionText"></span>
+          </div>
+          <div class="controls" aria-label="페이지 이동">
+            <button class="control-button" id="prevButton" type="button">← 이전</button>
+            <button class="control-button primary" id="nextButton" type="button">다음 →</button>
+          </div>
+        </div>
+        <div class="thumb-strip" id="thumbStrip" aria-label="장면 선택"></div>
+      </section>
+    </div>
+  </section>
+
+  <section class="library" aria-labelledby="library-title">
+    <div class="section-title">
+      <h2 id="library-title">책 목록</h2>
+      <p>표지와 장면을 PNG 원본으로 표시합니다.</p>
+    </div>
+    <div class="cards" id="cards"></div>
+  </section>
+</main>
+
+<script>
+const IMAGE_BASE = "../03_solar_system/illustrations_16x9/";
+
+const volumes = [
+  {
+    id: "solar-vol01",
+    volume: "1권",
+    title: "따뜻한 마음 태양이",
+    lesson: "멀리 있어도 모두를 돌보는 사랑",
+    cover: "vol01_cover_sun.png",
+    scenes: [
+      "vol01_scene01_paper_airplane_magic.png",
+      "vol01_scene02_star_road_flight.png",
+      "vol01_scene03_sun_waves_from_afar.png",
+      "vol01_scene04_too_hot_to_approach.png",
+      "vol01_scene05_lonely_sun_tears.png",
+      "vol01_scene06_sun_dims_light.png",
+      "vol01_scene07_planets_shiver.png",
+      "vol01_scene08_uju_calls_sun.png",
+      "vol01_scene09_light_reaches_planets.png",
+      "vol01_scene10_sun_bright_again.png",
+      "vol01_scene11_flowers_planets_recover.png",
+      "vol01_scene12_seed_sprout.png",
+      "vol01_scene13_planets_send_hearts.png",
+      "vol01_scene14_light_hug.png",
+      "vol01_scene15_sun_nightlight.png",
+      "vol01_scene16_goodbye_star_road.png",
+      "vol01_scene17_morning_sunlight.png",
+      "vol01_scene18_family_morning_sun.png"
+    ]
+  },
+  {
+    id: "solar-vol02",
+    volume: "2권",
+    title: "빨리빨리 수성이",
+    lesson: "천천히 해야 더 잘되는 일도 있어",
+    cover: "vol02_cover_mercury.png",
+    scenes: [
+      "vol02_scene01_arrive_mercury.png",
+      "vol02_scene02_fast_talker.png",
+      "vol02_scene03_fast_orbit.png",
+      "vol02_scene04_follow_me_fast.png",
+      "vol02_scene05_trips_and_rolls.png",
+      "vol02_scene06_hiccup_messy_drawing.png",
+      "vol02_scene07_sad_mistakes.png",
+      "vol02_scene08_uju_teaches_slow_spell.png",
+      "vol02_scene09_mercury_breathes.png",
+      "vol02_scene10_build_star_sandcastle.png",
+      "vol02_scene11_finished_sandcastle.png",
+      "vol02_scene12_mercury_amazed.png",
+      "vol02_scene13_realization.png",
+      "vol02_scene14_running_race.png",
+      "vol02_scene15_fast_and_slow_choices.png",
+      "vol02_scene16_goodbye_mercury.png"
+    ]
+  },
+  {
+    id: "solar-vol03",
+    volume: "3권",
+    title: "반짝이는 금성이",
+    lesson: "겉모습보다 솔직한 마음",
+    cover: "vol03_cover_venus.png",
+    scenes: [
+      "vol03_scene01_evening_star.png",
+      "vol03_scene02_cloud_veil_pose.png",
+      "vol03_scene03_hot_inside_secret.png",
+      "vol03_scene04_forced_smile.png",
+      "vol03_scene05_uju_arrives_asks.png",
+      "vol03_scene06_uju_notices.png",
+      "vol03_scene07_venus_startled.png",
+      "vol03_scene08_honest_tear.png",
+      "vol03_scene09_curled_worry.png",
+      "vol03_scene10_uju_hugs_venus.png",
+      "vol03_scene11_true_heart_talk.png",
+      "vol03_scene12_bandi_cools_venus.png",
+      "vol03_scene13_pinky_promise.png",
+      "vol03_scene14_natural_smile.png",
+      "vol03_scene15_true_sparkle.png",
+      "vol03_scene16_evening_wave.png"
+    ]
+  },
+  {
+    id: "solar-vol04",
+    volume: "4권",
+    title: "초록빛 지구",
+    lesson: "우리 집 지구의 소중함과 환경 사랑",
+    cover: "vol04_cover_earth.png",
+    scenes: [
+      "vol04_scene01_distant_earth.png",
+      "vol04_scene02_earth_welcomes_uju.png",
+      "vol04_scene03_ocean_life.png",
+      "vol04_scene04_forest_life.png",
+      "vol04_scene05_uju_finds_home.png",
+      "vol04_scene06_planets_envy_earth.png",
+      "vol04_scene07_water_and_air.png",
+      "vol04_scene08_earth_coughs.png",
+      "vol04_scene09_uju_worries_for_earth.png",
+      "vol04_scene10_polluted_patch.png",
+      "vol04_scene11_uju_can_help.png",
+      "vol04_scene12_three_green_actions.png",
+      "vol04_scene13_promise_earth.png",
+      "vol04_scene14_small_action_restores_color.png",
+      "vol04_scene15_earth_recovers.png",
+      "vol04_scene16_children_protect_earth.png"
+    ]
+  },
+  {
+    id: "solar-vol05",
+    volume: "5권",
+    title: "궁금쟁이 화성이",
+    lesson: "호기심과 탐험 정신",
+    cover: "vol05_cover_mars.png",
+    scenes: [
+      "vol05_scene01_curious_mars.png",
+      "vol05_scene02_mars_telescope_earth.png",
+      "vol05_scene03_lonely_mars_surface.png",
+      "vol05_scene04_rover_descends.png",
+      "vol05_scene05_robby_introduces.png",
+      "vol05_scene06_rover_shows_earth_children.png",
+      "vol05_scene07_mars_touched.png",
+      "vol05_scene08_olympus_mons.png",
+      "vol05_scene09_valley_and_dunes.png",
+      "vol05_scene10_photos_to_earth.png",
+      "vol05_scene11_earth_classroom_cheers.png",
+      "vol05_scene12_uju_arrives_mars_rover.png",
+      "vol05_scene13_mars_expectant.png",
+      "vol05_scene14_prepare_sand_dunes.png",
+      "vol05_scene15_blue_sunset_friendship.png",
+      "vol05_scene16_telescope_goodbye.png"
+    ]
+  },
+  {
+    id: "solar-vol06",
+    volume: "6권",
+    title: "듬직한 목성이",
+    lesson: "큰 몸은 누군가를 지키는 힘",
+    cover: "vol06_cover_jupiter.png",
+    scenes: [
+      "vol06_scene01_size_comparison.png",
+      "vol06_scene02_bad_hide_and_seek.png",
+      "vol06_scene03_broken_seesaw.png",
+      "vol06_scene04_trying_to_shrink.png",
+      "vol06_scene05_asteroids_approach.png",
+      "vol06_scene06_small_planets_in_danger.png",
+      "vol06_scene07_uju_asks_jupiter.png",
+      "vol06_scene08_jupiter_shield.png",
+      "vol06_scene09_gravity_catches_asteroids.png",
+      "vol06_scene10_planets_relieved.png",
+      "vol06_scene11_planets_cheer_jupiter.png",
+      "vol06_scene12_jupiter_blocks_for_earth.png",
+      "vol06_scene13_jupiter_proud_red_spot.png",
+      "vol06_scene14_play_on_jupiter.png",
+      "vol06_scene15_jupiter_hugs_friends.png",
+      "vol06_scene16_dependable_protector.png"
+    ]
+  },
+  {
+    id: "solar-vol07",
+    volume: "7권",
+    title: "멋쟁이 토성이",
+    lesson: "자랑보다 겸손, 진짜 멋은 마음에서",
+    cover: "vol07_cover_saturn.png",
+    scenes: [
+      "vol07_scene01_saturn_mirror_pose.png",
+      "vol07_scene02_ring_showoff_spin.png",
+      "vol07_scene03_friends_get_tired.png",
+      "vol07_scene04_friends_drift_away.png",
+      "vol07_scene05_saturn_left_alone.png",
+      "vol07_scene06_space_wind_tangles_rings.png",
+      "vol07_scene07_crying_with_tangled_rings.png",
+      "vol07_scene08_friends_gather_worried.png",
+      "vol07_scene09_saturn_head_down.png",
+      "vol07_scene10_star_combs_for_rings.png",
+      "vol07_scene11_everyone_grooms_rings.png",
+      "vol07_scene12_saturn_moved_to_tears.png",
+      "vol07_scene13_uju_holds_saturn_hand.png",
+      "vol07_scene14_ring_hula_hoop_play.png",
+      "vol07_scene15_true_style_kind_heart.png",
+      "vol07_scene16_warm_heart_final.png"
+    ]
+  },
+  {
+    id: "solar-vol08",
+    volume: "8권",
+    title: "거꾸로 천왕성이",
+    lesson: "남과 달라도 나만의 방식이 있어",
+    cover: "vol08_cover_uranus.png",
+    scenes: [
+      "vol08_scene01_sideways_roll_intro.png",
+      "vol08_scene02_standing_spin_comparison.png",
+      "vol08_scene03_friends_whisper_uranus_sad.png",
+      "vol08_scene04_trying_to_stand_up.png",
+      "vol08_scene05_falling_sideways_again.png",
+      "vol08_scene06_lonely_corner_roll.png",
+      "vol08_scene07_uju_lies_beside_uranus.png",
+      "vol08_scene08_star_river_view.png",
+      "vol08_scene09_uju_bandi_amazed.png",
+      "vol08_scene10_uju_calls_friends.png",
+      "vol08_scene11_planets_lie_down_star_river.png",
+      "vol08_scene12_friends_thank_uranus.png",
+      "vol08_scene13_friends_admire_uranus.png",
+      "vol08_scene14_rolling_with_teal_trail.png",
+      "vol08_scene15_confident_unique_view.png",
+      "vol08_scene16_all_orbit_their_own_way.png"
+    ]
+  },
+  {
+    id: "solar-vol09",
+    volume: "9권",
+    title: "멀리 있는 해왕성이",
+    lesson: "멀리 있어도 마음은 가까운 우정",
+    cover: "vol09_cover_neptune.png",
+    scenes: [
+      "vol09_scene01_lonely_far_neptune.png",
+      "vol09_scene02_distant_sun_and_friends.png",
+      "vol09_scene03_neptune_telescope_sigh.png",
+      "vol09_scene04_neptune_strong_winds.png",
+      "vol09_scene05_wind_reaches_antenna.png",
+      "vol09_scene06_uju_bandi_follow_sound.png",
+      "vol09_scene07_long_journey_past_planets.png",
+      "vol09_scene08_arrival_surprised_neptune.png",
+      "vol09_scene09_wind_calms_down.png",
+      "vol09_scene10_blue_cloud_play.png",
+      "vol09_scene11_parting_time_sad.png",
+      "vol09_scene12_uju_searches_bag.png",
+      "vol09_scene13_star_walkie_talkie_gift.png",
+      "vol09_scene14_goodnight_radio_connection.png",
+      "vol09_scene15_neptune_hugs_radio_calm.png",
+      "vol09_scene16_window_to_neptune_signal.png"
+    ]
+  },
+  {
+    id: "solar-vol10",
+    volume: "10권",
+    title: "작아도 괜찮아 명왕성이",
+    lesson: "이름표가 바뀌어도 나의 가치는 그대로",
+    cover: "vol10_cover_pluto.png",
+    scenes: [
+      "vol10_scene01_far_small_pluto_heart.png",
+      "vol10_scene02_old_group_photo_memory.png",
+      "vol10_scene03_space_mail_letter_arrives.png",
+      "vol10_scene04_blank_notice_shock.png",
+      "vol10_scene05_pluto_cries_heart_wet.png",
+      "vol10_scene06_uju_arrives_to_help.png",
+      "vol10_scene07_fallen_blank_name_tag.png",
+      "vol10_scene08_uju_points_heart.png",
+      "vol10_scene09_dwarf_planet_friends_arrive.png",
+      "vol10_scene10_little_dwarfs_look_up.png",
+      "vol10_scene11_pluto_realizes_big_sibling.png",
+      "vol10_scene12_earth_children_love_pluto.png",
+      "vol10_scene13_pluto_brightens.png",
+      "vol10_scene14_pluto_leads_dwarf_family.png",
+      "vol10_scene15_heart_patch_glows.png",
+      "vol10_scene16_pluto_surrounded_proud.png"
+    ]
+  },
+  {
+    id: "solar-vol11",
+    volume: "통합편",
+    title: "태양계 대운동회",
+    lesson: "서로 다른 재능이 모이면 멋진 하나가 돼",
+    cover: "vol11_special_cover_sports_day.png",
+    scenes: [
+      "vol11_scene01_sports_day_opens.png",
+      "vol11_scene02_planet_parade_referees.png",
+      "vol11_scene03_mercury_race_dash.png",
+      "vol11_scene04_mercury_finish_ribbon.png",
+      "vol11_scene05_jupiter_lifts_asteroid_barbell.png",
+      "vol11_scene06_jupiter_proud_applause.png",
+      "vol11_scene07_saturn_hula_ring.png",
+      "vol11_scene08_uranus_rolling_race.png",
+      "vol11_scene09_neptune_blows_flag.png",
+      "vol11_scene10_mars_rover_treasure_hunt.png",
+      "vol11_scene11_venus_cheerleader.png",
+      "vol11_scene12_pluto_cheers_dwarf_race.png",
+      "vol11_scene13_earth_shares_snacks.png",
+      "vol11_scene14_orbit_team_event.png",
+      "vol11_scene15_planets_wave_in_order.png",
+      "vol11_scene16_sun_medal_light.png",
+      "vol11_scene17_sun_family_light_hug.png",
+      "vol11_scene18_bedroom_solar_family_final.png"
+    ]
+  }
+];
+
+const state = {
+  bookIndex: 0,
+  pageIndex: 0
+};
+
+const els = {
+  bookList: document.getElementById("bookList"),
+  cards: document.getElementById("cards"),
+  stageVolume: document.getElementById("stageVolume"),
+  stageTitle: document.getElementById("stageTitle"),
+  pageCount: document.getElementById("pageCount"),
+  progressBar: document.getElementById("progressBar"),
+  pageImage: document.getElementById("pageImage"),
+  captionTitle: document.getElementById("captionTitle"),
+  captionText: document.getElementById("captionText"),
+  prevButton: document.getElementById("prevButton"),
+  nextButton: document.getElementById("nextButton"),
+  thumbStrip: document.getElementById("thumbStrip")
+};
+
+function pagesFor(volume) {
+  return [volume.cover].concat(volume.scenes);
+}
+
+function imageUrl(file) {
+  return IMAGE_BASE + file;
+}
+
+function pageLabel(volume, pageIndex) {
+  if (pageIndex === 0) return volume.volume + " 표지";
+  return volume.volume + " " + String(pageIndex).padStart(2, "0") + "장";
+}
+
+function setHash() {
+  const volume = volumes[state.bookIndex];
+  history.replaceState(null, "", "#" + volume.id + "/" + state.pageIndex);
+}
+
+function restoreHash() {
+  const raw = decodeURIComponent(location.hash.replace(/^#/, ""));
+  if (!raw) return;
+  const parts = raw.split("/");
+  const index = volumes.findIndex((volume) => volume.id === parts[0]);
+  if (index < 0) return;
+  const page = Math.max(0, Number.parseInt(parts[1] || "0", 10) || 0);
+  state.bookIndex = index;
+  state.pageIndex = Math.min(page, pagesFor(volumes[index]).length - 1);
+}
+
+function selectBook(bookIndex, pageIndex) {
+  state.bookIndex = Math.max(0, Math.min(bookIndex, volumes.length - 1));
+  state.pageIndex = Math.max(0, Math.min(pageIndex || 0, pagesFor(volumes[state.bookIndex]).length - 1));
+  render();
+}
+
+function move(delta) {
+  const volume = volumes[state.bookIndex];
+  const pages = pagesFor(volume);
+  const nextPage = state.pageIndex + delta;
+
+  if (nextPage >= 0 && nextPage < pages.length) {
+    state.pageIndex = nextPage;
+  } else if (delta > 0 && state.bookIndex < volumes.length - 1) {
+    state.bookIndex += 1;
+    state.pageIndex = 0;
+  } else if (delta < 0 && state.bookIndex > 0) {
+    state.bookIndex -= 1;
+    state.pageIndex = pagesFor(volumes[state.bookIndex]).length - 1;
+  }
+
+  render();
+}
+
+function renderBookList() {
+  els.bookList.innerHTML = volumes.map((volume, index) => {
+    const current = index === state.bookIndex ? ' aria-current="true"' : "";
+    return [
+      '<button class="book-button" type="button" data-book="' + index + '"' + current + '>',
+      '  <img class="book-thumb" src="' + imageUrl(volume.cover) + '" alt="">',
+      '  <span class="book-meta">',
+      '    <small>' + volume.volume + " · " + (volume.scenes.length + 1) + "장</small>",
+      '    <strong>' + volume.title + "</strong>",
+      '    <span>' + volume.lesson + "</span>",
+      "  </span>",
+      "</button>"
+    ].join("");
+  }).join("");
+}
+
+function renderCards() {
+  els.cards.innerHTML = volumes.map((volume, index) => {
+    return [
+      '<article class="book-card">',
+      '  <img src="' + imageUrl(volume.cover) + '" alt="' + volume.title + ' 표지">',
+      "  <div>",
+      "    <small>" + volume.volume + " · " + (volume.scenes.length + 1) + "장</small>",
+      "    <h3>" + volume.title + "</h3>",
+      "  </div>",
+      "  <p>" + volume.lesson + "</p>",
+      '  <button class="card-button" type="button" data-card-book="' + index + '">바로 보기</button>',
+      "</article>"
+    ].join("");
+  }).join("");
+}
+
+function renderThumbs(volume, pages) {
+  els.thumbStrip.innerHTML = pages.map((file, index) => {
+    const current = index === state.pageIndex ? ' aria-current="true"' : "";
+    return [
+      '<button class="page-thumb" type="button" data-page="' + index + '"' + current + ' aria-label="' + pageLabel(volume, index) + '">',
+      '  <img src="' + imageUrl(file) + '" alt="">',
+      "</button>"
+    ].join("");
+  }).join("");
+}
+
+function renderStage() {
+  const volume = volumes[state.bookIndex];
+  const pages = pagesFor(volume);
+  const file = pages[state.pageIndex];
+  const label = pageLabel(volume, state.pageIndex);
+
+  els.stageVolume.textContent = volume.volume + " · " + volume.lesson;
+  els.stageTitle.textContent = volume.title;
+  els.pageCount.textContent = (state.pageIndex + 1) + " / " + pages.length;
+  els.progressBar.style.width = ((state.pageIndex + 1) / pages.length * 100) + "%";
+  els.pageImage.src = imageUrl(file);
+  els.pageImage.alt = volume.title + " " + label;
+  els.captionTitle.textContent = label;
+  els.captionText.textContent = state.pageIndex === 0 ? volume.lesson : volume.title + "의 " + state.pageIndex + "번째 장면";
+  els.prevButton.disabled = state.bookIndex === 0 && state.pageIndex === 0;
+  els.nextButton.disabled = state.bookIndex === volumes.length - 1 && state.pageIndex === pages.length - 1;
+  renderThumbs(volume, pages);
+}
+
+function bindEvents() {
+  els.prevButton.addEventListener("click", () => move(-1));
+  els.nextButton.addEventListener("click", () => move(1));
+  els.bookList.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-book]");
+    if (!button) return;
+    selectBook(Number(button.dataset.book), 0);
+  });
+  els.cards.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-card-book]");
+    if (!button) return;
+    selectBook(Number(button.dataset.cardBook), 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+  els.thumbStrip.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-page]");
+    if (!button) return;
+    state.pageIndex = Number(button.dataset.page);
+    render();
+  });
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") move(-1);
+    if (event.key === "ArrowRight") move(1);
+  });
+  window.addEventListener("hashchange", () => {
+    restoreHash();
+    render();
+  });
+}
+
+function render() {
+  renderBookList();
+  renderStage();
+  setHash();
+}
+
+restoreHash();
+renderCards();
+bindEvents();
+render();
+</script>
+</body>
+</html>

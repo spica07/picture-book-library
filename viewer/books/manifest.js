@@ -125,7 +125,9 @@ window.LIBRARY = [
     seriesIcon: "🦖",
     books: [
       { id: "dinosaurs-vol01", volume: "1권", title: "무서운 게 아니야, 티노", lesson: "힘은 누군가를 지키는 데 쓰는 것",
-        cover: "../06_dinosaurs/illustrations_web/vol01_cover_tino.webp", available: true }
+        cover: "../06_dinosaurs/illustrations_web/vol01_cover_tino.webp", available: true },
+      { id: "dinosaurs-vol02", volume: "2권", title: "뿔 셋 달린 용감이, 트리케", lesson: "진짜 용기란 무서워도 나서는 것",
+        cover: "../06_dinosaurs/illustrations_web/vol02_cover_trike.webp", available: true }
     ]
   },
   {
@@ -135,7 +137,9 @@ window.LIBRARY = [
       { id: "emotions-vol01", volume: "1권", title: "반짝반짝 기쁨이", lesson: "작은 기쁨 찾기",
         cover: "../07_emotions/illustrations_web/vol01_cover_joy.webp", available: true },
       { id: "emotions-vol02", volume: "2권", title: "파랑파랑 슬픔이", lesson: "울어도 괜찮아",
-        cover: "../07_emotions/illustrations_web/vol02_cover_sadness.webp", available: true }
+        cover: "../07_emotions/illustrations_web/vol02_cover_sadness.webp", available: true },
+      { id: "emotions-vol03", volume: "3권", title: "활활 화남이", lesson: "화 다루기 3단계",
+        cover: "../07_emotions/illustrations_web/vol03_cover_anger.webp", available: true }
     ]
   }
 ];
