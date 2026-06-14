@@ -34,45 +34,95 @@ if ("serviceWorker" in navigator && location.protocol !== "file:") {
 </script>
 <script src="books/manifest.js"></script>
 <script>
-// manifest.js 의 LIBRARY 목록으로 시리즈별 책 카드를 그린다
+// manifest.js 의 LIBRARY 목록으로 주제 필터바 + 시리즈별 책 카드를 그린다
 (function () {
   "use strict";
   var root = document.getElementById("library");
+  var lib = window.LIBRARY || [];
 
-  window.LIBRARY.forEach(function (series) {
-    var section = document.createElement("section");
-    section.className = "lib-series";
-
-    var cards = series.books.map(function (b) {
-      if (b.available) {
-        return (
-          '<a class="lib-card" href="book.html?book=' + b.id + '">' +
-          '  <img src="' + b.cover + '" alt="' + b.title + ' 표지" loading="lazy">' +
-          '  <div class="lib-card-body">' +
-          '    <div class="lib-card-vol">' + b.volume + "</div>" +
-          '    <div class="lib-card-title">' + b.title + "</div>" +
-          '    <div class="lib-card-lesson">' + b.lesson + "</div>" +
-          "  </div>" +
-          "</a>"
-        );
-      }
+  function cardHtml(b) {
+    if (b.available) {
       return (
-        '<div class="lib-card lib-soon">' +
+        '<a class="lib-card" href="book.html?book=' + b.id + '">' +
         '  <img src="' + b.cover + '" alt="' + b.title + ' 표지" loading="lazy">' +
         '  <div class="lib-card-body">' +
-        '    <div class="lib-card-vol">' + b.volume + '<span class="lib-badge-soon">준비 중</span></div>' +
+        '    <div class="lib-card-vol">' + b.volume + "</div>" +
         '    <div class="lib-card-title">' + b.title + "</div>" +
         '    <div class="lib-card-lesson">' + b.lesson + "</div>" +
         "  </div>" +
-        "</div>"
+        "</a>"
       );
-    }).join("");
+    }
+    return (
+      '<div class="lib-card lib-soon">' +
+      '  <img src="' + b.cover + '" alt="' + b.title + ' 표지" loading="lazy">' +
+      '  <div class="lib-card-body">' +
+      '    <div class="lib-card-vol">' + b.volume + '<span class="lib-badge-soon">준비 중</span></div>' +
+      '    <div class="lib-card-title">' + b.title + "</div>" +
+      '    <div class="lib-card-lesson">' + b.lesson + "</div>" +
+      "  </div>" +
+      "</div>"
+    );
+  }
 
+  function seriesId(i) { return "series-" + i; }
+
+  // 주제(시리즈) 바로가기 필터바 — 클릭하면 해당 주제로 스크롤
+  var filter = document.createElement("nav");
+  filter.className = "lib-filter";
+  filter.setAttribute("aria-label", "주제별 바로가기");
+  filter.innerHTML = lib.map(function (s, i) {
+    return '<button class="lib-chip" type="button" data-target="' + seriesId(i) + '">' +
+      s.seriesIcon + " " + s.series + "</button>";
+  }).join("");
+  root.parentNode.insertBefore(filter, root);
+
+  // 시리즈 섹션
+  lib.forEach(function (series, i) {
+    var section = document.createElement("section");
+    section.className = "lib-series";
+    section.id = seriesId(i);
     section.innerHTML =
       "<h2>" + series.seriesIcon + " " + series.series + "</h2>" +
-      '<div class="lib-grid">' + cards + "</div>";
+      '<div class="lib-grid">' + series.books.map(cardHtml).join("") + "</div>";
     root.appendChild(section);
   });
+
+  var chips = [].slice.call(filter.querySelectorAll(".lib-chip"));
+
+  // 칩 클릭 → 해당 주제로 부드럽게 스크롤
+  filter.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-target]");
+    if (!btn) return;
+    var el = document.getElementById(btn.dataset.target);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  // 칩 하나를 활성화하고, 가로 칩바 안에서 가운데로 보이게 한다(페이지 세로 스크롤엔 영향 없음)
+  function setActive(targetId) {
+    chips.forEach(function (c) {
+      var on = c.dataset.target === targetId;
+      c.classList.toggle("lib-chip-on", on);
+      if (on) {
+        var left = c.offsetLeft - filter.clientWidth / 2 + c.clientWidth / 2;
+        filter.scrollTo({ left: left, behavior: "smooth" });
+      }
+    });
+  }
+
+  // 스크롤에 따라 현재 보고 있는 주제 칩을 강조 (scroll spy)
+  if ("IntersectionObserver" in window) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) setActive(en.target.id);
+      });
+    }, { rootMargin: "-45% 0px -50% 0px" });
+    lib.forEach(function (s, i) {
+      var el = document.getElementById(seriesId(i));
+      if (el) obs.observe(el);
+    });
+  }
+  if (chips[0]) chips[0].classList.add("lib-chip-on");
 })();
 </script>
 </body>
