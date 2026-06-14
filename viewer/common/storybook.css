@@ -31,9 +31,14 @@ body {
 }
 
 #app {
-  height: 100dvh;
+  /* 가로모드에서 주소창 등으로 화면을 넘어 헤더·자막이 잘리는 것을 막는다.
+     svh(주소창 포함 최소 높이)를 우선 적용하고, 미지원 브라우저는 vh 로 폴백.
+     body 가 overflow:hidden 이라 한 번 넘치면 스크롤도 못 하므로 잘림 방지가 중요. */
+  height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 /* ---------- 상단 바 ---------- */
