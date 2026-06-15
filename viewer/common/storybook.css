@@ -368,6 +368,20 @@ body {
   .sb-guide { padding: 14px 16px; }
 }
 
+/* 세로 모드: 그림+자막을 화면 세로 가운데로 모은다.
+   기본 레이아웃은 figure(flex:1)가 남는 세로를 모두 먹고 그림이 바닥(center bottom)에
+   붙어, 16:9 그림이 짧아지는 세로 화면에서는 콘텐츠가 화면 하단으로 쏠린다.
+   세로에서는 figure를 그림 크기만큼만 쓰게 하고 슬라이드를 가운데 정렬한다. */
+@media (orientation: portrait) {
+  .sb-scene { justify-content: center; }
+  .sb-scene .sb-figure { flex: 0 1 auto; }
+  .sb-scene .sb-img {
+    height: auto;
+    max-height: 100%;
+    object-position: center;
+  }
+}
+
 /* 태블릿·폰 가로모드: 한 문장 표시를 살려 글상자를 납작하게 → 그림 최대 크기
    (데스크톱 대형 화면 height>820 은 제외) */
 @media (orientation: landscape) and (max-height: 820px) {
@@ -379,6 +393,14 @@ body {
     line-height: 1.4;
   }
   .sb-meta { display: none; }
+
+  /* 표지: 가로 화면에서 그림·제목이 위아래 반반으로 나뉘면 답답하다.
+     그림(왼쪽) · 제목/버튼(오른쪽) 좌우 배치로 양쪽 공간을 살린다. */
+  .sb-cover { flex-direction: row; align-items: center; gap: 22px; }
+  .sb-cover .sb-figure { flex: 1 1 58%; height: 100%; min-height: 0; }
+  .sb-cover .sb-cover-text { flex: 1 1 42%; padding: 0 6px; }
+  .sb-cover .sb-meta { display: block; }
+  .sb-cover .sb-title { font-size: clamp(1.5rem, 5vh, 2.6rem); }
 }
 
 /* 폰 가로 모드(아주 낮은 화면): 헤더·글상자를 한층 더 컴팩트하게 */
