@@ -135,7 +135,15 @@ window.LIBRARY = [
       { id: "dinosaurs-vol04", volume: "4권", title: "빠른 발 랩터 삼형제", lesson: "경쟁보다 팀워크",
         cover: "../06_dinosaurs/illustrations_web/vol04_cover_raptor_brothers.webp", available: true },
       { id: "dinosaurs-vol05", volume: "5권", title: "등에 지붕을 단 스테고", lesson: "느려도 든든한 존재",
-        cover: "../06_dinosaurs/illustrations_web/vol05_cover_stego_roof.webp", available: true }
+        cover: "../06_dinosaurs/illustrations_web/vol05_cover_stego_roof.webp", available: true },
+      { id: "dinosaurs-vol06", volume: "6권", title: "하늘 꼬마 우체부, 하늘이", lesson: "남의 자리가 커 보여도, 내 자리가 소중해",
+        cover: "../06_dinosaurs/illustrations_web/vol06_cover_haneul_mail.webp", available: true },
+      { id: "dinosaurs-vol07", volume: "7권", title: "갑옷 입은 겁쟁이 안키", lesson: "겁이 많아도 누군가를 지킬 수 있어",
+        cover: "../06_dinosaurs/illustrations_web/vol07_cover_anki_hail_shelter.webp", available: true },
+      { id: "dinosaurs-vol08", volume: "8권", title: "뿌우뿌우 음악가 파라", lesson: "나의 소리와 표현이 누군가를 도와",
+        cover: "../06_dinosaurs/illustrations_web/vol08_cover_para_music_fog.webp", available: true },
+      { id: "dinosaurs-vol09", volume: "9권", title: "바다에서 온 친구, 모사", lesson: "사는 곳이 달라도 친구가 될 수 있어",
+        cover: "../06_dinosaurs/illustrations_web/vol09_cover_mosa_lake_friend.webp", available: true }
     ]
   },
   {
@@ -151,7 +159,17 @@ window.LIBRARY = [
       { id: "emotions-vol04", volume: "4권", title: "덜덜 무서움이", lesson: "무서움은 경보등",
         cover: "../07_emotions/illustrations_web/vol04_cover_fear.webp", available: true },
       { id: "emotions-vol05", volume: "5권", title: "발그레 부끄럼이", lesson: "한 문장부터 천천히",
-        cover: "../07_emotions/illustrations_web/vol05_cover_shyness.webp", available: true }
+        cover: "../07_emotions/illustrations_web/vol05_cover_shyness.webp", available: true },
+      { id: "emotions-vol06", volume: "6권", title: "새콤한 질투", lesson: "질투가 올라오면 말로 바꿔요",
+        cover: "../07_emotions/illustrations_web/vol06_cover_jealousy.webp", available: true },
+      { id: "emotions-vol07", volume: "7권", title: "뭉게뭉게 심심이", lesson: "심심해야 상상이 자라요",
+        cover: "../07_emotions/illustrations_web/vol07_cover_boredom.webp", available: true },
+      { id: "emotions-vol08", volume: "8권", title: "두근두근 설렘이", lesson: "감정에 이름 붙이기",
+        cover: "../07_emotions/illustrations_web/vol08_cover_excitement.webp", available: true },
+      { id: "emotions-vol09", volume: "9권", title: "무거운 미안함이", lesson: "사과는 마음을 가볍게 해요",
+        cover: "../07_emotions/illustrations_web/vol09_cover_guilt.webp", available: true },
+      { id: "emotions-vol10", volume: "10권", title: "작지만 강한 용기", lesson: "무서워도 한 발",
+        cover: "../07_emotions/illustrations_web/vol10_cover_courage.webp", available: true }
     ]
   }
 ];
