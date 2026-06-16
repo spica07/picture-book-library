@@ -103,7 +103,9 @@ window.LIBRARY = [
       { id: "ocean-vol09", volume: "9권", title: "바다의 아파트, 산호 마을", lesson: "우리가 사는 곳을 함께 지키기 (환경)",
         cover: "../04_ocean/illustrations_web/vol09_cover_coral_apartment.webp", available: true },
       { id: "ocean-vol10", volume: "10권", title: "깜깜한 바다의 등불, 아귀", lesson: "어둠 속에도 빛은 있다",
-        cover: "../04_ocean/illustrations_web/vol10_cover_deep_sea_anglerfish.webp", available: true }
+        cover: "../04_ocean/illustrations_web/vol10_cover_deep_sea_anglerfish.webp", available: true },
+      { id: "ocean-vol11", volume: "통합편", title: "바다 대청소 대작전", lesson: "협동 + 바다 환경 보호 실천",
+        cover: "../04_ocean/illustrations_web/finale_cover_ocean_cleanup_operation.webp", available: true }
     ]
   },
   {
@@ -119,7 +121,19 @@ window.LIBRARY = [
       { id: "animals-vol04", volume: "4권", title: "안아 주고 싶은 고슴도치 치치", lesson: "내 방식대로 마음을 전하면 돼",
         cover: "../05_animals/illustrations_web/vol04_cover_hedgehog_apples.webp", available: true },
       { id: "animals-vol05", volume: "5권", title: "거짓말한 여우 여울이", lesson: "정직과 신뢰",
-        cover: "../05_animals/illustrations_web/vol05_cover_mischievous_fox.webp", available: true }
+        cover: "../05_animals/illustrations_web/vol05_cover_mischievous_fox.webp", available: true },
+      { id: "animals-vol06", volume: "6권", title: "쿨쿨 곰 아저씨의 겨울잠", lesson: "잠의 소중함 — 푹 자야 신나게 놀아",
+        cover: "../05_animals/illustrations_web/vol06_cover_bear_winter_sleep.webp", available: true },
+      { id: "animals-vol07", volume: "7권", title: "꼬마 장사 개미 미미", lesson: "작아도 함께하면 더 세다",
+        cover: "../05_animals/illustrations_web/vol07_cover_tiny_ant_cookie.webp", available: true },
+      { id: "animals-vol08", volume: "8권", title: "알록달록 카멜레온 레오", lesson: "내 감정을 솔직하게 표현하기",
+        cover: "../05_animals/illustrations_web/vol08_cover_rainbow_chameleon.webp", available: true },
+      { id: "animals-vol09", volume: "9권", title: "날지 못하는 새, 펭귄 핑구", lesson: "못하는 것 말고 잘하는 것을 보기",
+        cover: "../05_animals/illustrations_web/vol09_cover_underwater_flying_penguin.webp", available: true },
+      { id: "animals-vol10", volume: "10권", title: "코끼리 코야의 긴 기억", lesson: "경험의 지혜, 어른 공경",
+        cover: "../05_animals/illustrations_web/vol10_cover_koya_leads_animals.webp", available: true },
+      { id: "animals-vol11", volume: "통합편", title: "도토리 숲 큰 운동회", lesson: "서로 다른 재능이 모두를 지킨다",
+        cover: "../05_animals/illustrations_web/finale_cover_big_sports_day.webp", available: true }
     ]
   },
   {
@@ -145,7 +159,9 @@ window.LIBRARY = [
       { id: "dinosaurs-vol09", volume: "9권", title: "바다에서 온 친구, 모사", lesson: "사는 곳이 달라도 친구가 될 수 있어",
         cover: "../06_dinosaurs/illustrations_web/vol09_cover_mosa_lake_friend.webp", available: true },
       { id: "dinosaurs-vol10", volume: "10권", title: "누구의 알일까?", lesson: "함께 돌보는 마음, 가족의 의미",
-        cover: "../06_dinosaurs/illustrations_web/vol10_cover_spotted_egg_nest.webp", available: true }
+        cover: "../06_dinosaurs/illustrations_web/vol10_cover_spotted_egg_nest.webp", available: true },
+      { id: "dinosaurs-vol11", volume: "통합편", title: "화산이 콜록콜록!", lesson: "위기 앞에서 힘 모으기 + 안전 대피",
+        cover: "../06_dinosaurs/illustrations_web/vol11_special_cover_volcano_evacuation.webp", available: true }
     ]
   },
   {

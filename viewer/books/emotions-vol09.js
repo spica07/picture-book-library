@@ -11,17 +11,17 @@ registerBook({
   backCoverQuote: "사과하면 마음이 깃털처럼 가벼워져!",
   parentGuide: {
     question: "미안한데 말하지 못해서 마음이 무거웠던 적이 있었나요?",
-    activity: "사과 3종 세트 연습하기: \"미안해 + 내가 도울게 + 같이 하자\"",
+    activity: "사과 3종 세트 연습하기: \"미안해 + 내가 바로잡을게 + 같이 하자\"",
     message: "미안함을 벌처럼 느끼기보다, 관계를 고치기 위한 용기 신호로 받아들이도록 돕습니다."
   },
   scenes: [
     {
       image: "vol09_scene01_paint_spill_on_art.png",
-      text: "미술 시간, 하루가 물통을 옮기다 그만,\n촤악! 도윤이의 그림에 물감물이 쏟아졌어요."
+      text: "미술 시간, 도윤이가 잠깐 자리를 비운 사이,\n하루가 물통을 옮기다 그만 촤악!"
     },
     {
       image: "vol09_scene02_haru_hides_after_spill.png",
-      text: "\"누구야?\" 도윤이가 두리번거렸지만,\n하루는 얼른 자리로 숨었어요."
+      text: "도윤이의 그림에 물감물이 쏟아졌어요.\n아무도 보지 못했지만, 하루는 얼른 숨어 버렸지요."
     },
     {
       image: "vol09_scene03_pebble_in_heart_pocket.png",
@@ -57,7 +57,7 @@ registerBook({
     },
     {
       image: "vol09_scene11_offers_cloth_and_paper.png",
-      text: "\"내가 닦는 거 도울게.\n그리고... 같이 다시 그리자!\""
+      text: "\"새 종이랑 물감을 가져왔어.\n내가 준비할게. 같이 다시 그리자!\""
     },
     {
       image: "vol09_scene12_doyoon_smiles_thanks.png",
@@ -69,7 +69,7 @@ registerBook({
     },
     {
       image: "vol09_scene14_bigger_picture_together.png",
-      text: "미안한 마음이 들면 그건 용기를 낼 시간이에요.\n\"미안해, 내가 도울게, 같이 하자!\""
+      text: "미안한 마음이 들면 그건 용기를 낼 시간이에요.\n\"미안해, 내가 바로잡을게, 같이 하자!\""
     }
   ]
 });

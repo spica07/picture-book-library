@@ -4,7 +4,7 @@
  * - 삽화는 한 번 본 페이지부터 캐시 (cache-first)
  * - 새 책을 추가하면 아래 CACHE_VERSION 을 올려야 셸이 갱신됨
  * ============================================================ */
-var CACHE_VERSION = "storybook-v17";
+var CACHE_VERSION = "storybook-v18";
 
 var SHELL = [
   "./",
@@ -53,21 +53,40 @@ var SHELL = [
   "./books/ocean-vol08.js",
   "./books/ocean-vol09.js",
   "./books/ocean-vol10.js",
+  "./books/ocean-vol11.js",
   "./books/animals-vol01.js",
   "./books/animals-vol02.js",
   "./books/animals-vol03.js",
   "./books/animals-vol04.js",
   "./books/animals-vol05.js",
+  "./books/animals-vol06.js",
+  "./books/animals-vol07.js",
+  "./books/animals-vol08.js",
+  "./books/animals-vol09.js",
+  "./books/animals-vol10.js",
+  "./books/animals-vol11.js",
   "./books/dinosaurs-vol01.js",
   "./books/dinosaurs-vol02.js",
   "./books/dinosaurs-vol03.js",
   "./books/dinosaurs-vol04.js",
   "./books/dinosaurs-vol05.js",
+  "./books/dinosaurs-vol06.js",
+  "./books/dinosaurs-vol07.js",
+  "./books/dinosaurs-vol08.js",
+  "./books/dinosaurs-vol09.js",
+  "./books/dinosaurs-vol10.js",
+  "./books/dinosaurs-vol11.js",
   "./books/emotions-vol01.js",
   "./books/emotions-vol02.js",
   "./books/emotions-vol03.js",
   "./books/emotions-vol04.js",
   "./books/emotions-vol05.js",
+  "./books/emotions-vol06.js",
+  "./books/emotions-vol07.js",
+  "./books/emotions-vol08.js",
+  "./books/emotions-vol09.js",
+  "./books/emotions-vol10.js",
+  "./books/emotions-vol11.js",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];
