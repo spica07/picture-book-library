@@ -143,7 +143,9 @@ window.LIBRARY = [
       { id: "dinosaurs-vol08", volume: "8권", title: "뿌우뿌우 음악가 파라", lesson: "나의 소리와 표현이 누군가를 도와",
         cover: "../06_dinosaurs/illustrations_web/vol08_cover_para_music_fog.webp", available: true },
       { id: "dinosaurs-vol09", volume: "9권", title: "바다에서 온 친구, 모사", lesson: "사는 곳이 달라도 친구가 될 수 있어",
-        cover: "../06_dinosaurs/illustrations_web/vol09_cover_mosa_lake_friend.webp", available: true }
+        cover: "../06_dinosaurs/illustrations_web/vol09_cover_mosa_lake_friend.webp", available: true },
+      { id: "dinosaurs-vol10", volume: "10권", title: "누구의 알일까?", lesson: "함께 돌보는 마음, 가족의 의미",
+        cover: "../06_dinosaurs/illustrations_web/vol10_cover_spotted_egg_nest.webp", available: true }
     ]
   },
   {
@@ -169,7 +171,9 @@ window.LIBRARY = [
       { id: "emotions-vol09", volume: "9권", title: "무거운 미안함이", lesson: "사과는 마음을 가볍게 해요",
         cover: "../07_emotions/illustrations_web/vol09_cover_guilt.webp", available: true },
       { id: "emotions-vol10", volume: "10권", title: "작지만 강한 용기", lesson: "무서워도 한 발",
-        cover: "../07_emotions/illustrations_web/vol10_cover_courage.webp", available: true }
+        cover: "../07_emotions/illustrations_web/vol10_cover_courage.webp", available: true },
+      { id: "emotions-vol11", volume: "통합편", title: "마음 마을 무지개 축제", lesson: "모든 감정이 다 필요해요",
+        cover: "../07_emotions/illustrations_web/vol11_special_cover_rainbow_festival.webp", available: true }
     ]
   }
 ];
