@@ -25,33 +25,57 @@
     lineIndex: 0,  // 현재 장 안에서 보여줄 문장 번호
     speaking: false, // 지금 한 문장을 소리내어 읽는 중
     reading: false,  // 문장을 이어서 낭독하는 중 (읽기/자동읽기)
-    autoRead: false  // 장 끝나면 다음 장으로 자동 진행
+    autoRead: false  // 장 끝나면 다음 장으로, 책 끝나면 다음 책으로 자동 진행
   };
 
+  var currentBookId = "";
+  var library = [];
+  var autoReadOnLoad = false;
+  var nextBookTimer = null;
+  var AUTO_CHAIN_KEY = "storybookAutoReadChain";
+  var NEXT_BOOK_DELAY_MS = 2000;
   var el = {}; // 캐시된 DOM 요소
 
   /* ---------- 초기화 ---------- */
 
   document.addEventListener("DOMContentLoaded", function () {
-    var bookId = new URLSearchParams(location.search).get("book");
-    if (!bookId || !/^[\w-]+$/.test(bookId)) {
+    var params = new URLSearchParams(location.search);
+    currentBookId = params.get("book") || "";
+    autoReadOnLoad = params.get("autoplay") === "1" || isAutoReadChainEnabled();
+    if (!currentBookId || !/^[\w-]+$/.test(currentBookId)) {
       showError("책을 찾을 수 없어요", "주소에 ?book=책ID 가 필요해요.<br>책장에서 책을 골라 주세요.");
       return;
     }
+
+    loadScript("books/manifest.js", function () {
+      library = window.LIBRARY || [];
+      loadBook(currentBookId);
+    }, function () {
+      library = [];
+      loadBook(currentBookId);
+    });
+  });
+
+  function loadScript(src, onload, onerror) {
     var script = document.createElement("script");
-    script.src = "books/" + bookId + ".js";
-    script.onload = function () {
+    script.src = src;
+    script.onload = onload;
+    script.onerror = onerror;
+    document.head.appendChild(script);
+  }
+
+  function loadBook(bookId) {
+    book = null;
+    loadScript("books/" + bookId + ".js", function () {
       if (!book) {
         showError("책 데이터 오류", "데이터 파일에 registerBook() 호출이 없어요.");
         return;
       }
       init();
-    };
-    script.onerror = function () {
+    }, function () {
       showError("책을 찾을 수 없어요", "books/" + bookId + ".js 파일이 없어요.");
-    };
-    document.head.appendChild(script);
-  });
+    });
+  }
 
   function showError(title, msg) {
     document.getElementById("app").innerHTML =
@@ -110,7 +134,6 @@
         '    <p class="sb-series">' + book.series + " · " + book.volume + "</p>" +
         '    <h1 class="sb-title">' + book.title + "</h1>" +
         '    <p class="sb-meta">' + book.age + " | " + book.scenes.length + "장면 | " + book.lesson + "</p>" +
-        '    <button class="sb-btn" data-action="start">📖 읽기 시작</button>' +
         "  </div>" +
         "</section>"
       );
@@ -191,11 +214,10 @@
     el.prev.addEventListener("click", function () { stepBack(); });
     el.next.addEventListener("click", function () { stepForward(); });
 
-    // 슬라이드 안의 버튼 (읽기 시작 / 다시 읽기)
+    // 슬라이드 안의 버튼 (다시 읽기)
     el.track.addEventListener("click", function (e) {
       var btn = e.target.closest("[data-action]");
       if (!btn) return;
-      if (btn.dataset.action === "start") go(1);
       if (btn.dataset.action === "restart") go(0);
     });
 
@@ -207,6 +229,7 @@
     initDrag();
     initTts();
     update(true);
+    if (autoReadOnLoad) startAutoReadSoon();
   }
 
   function curPage() { return state.pages[state.index]; }
@@ -373,22 +396,106 @@
 
     el.read.addEventListener("click", function () {
       // 이 장을 문장 단위로 이어 읽기 (장 끝에서 멈춤)
-      if (state.reading) stopReading();
+      if (state.reading) stopReading(false);
       else { state.reading = true; speakLine(); }
     });
 
     el.auto.addEventListener("click", function () {
-      state.autoRead = !state.autoRead;
-      el.auto.classList.toggle("sb-on", state.autoRead);
-      el.auto.textContent = state.autoRead ? "⏸ 자동 읽기" : "▶ 자동 읽기";
-      if (state.autoRead) { state.reading = true; speakLine(); }
-      else stopReading();
+      if (state.autoRead) {
+        setAutoRead(false);
+        stopReading(false);
+        return;
+      }
+      setAutoRead(true);
+      state.reading = true;
+      speakLine();
     });
 
     // 페이지를 떠날 때 낭독 정리
     window.addEventListener("beforeunload", function () {
       speechSynthesis.cancel();
     });
+  }
+
+  function startAutoReadSoon() {
+    if (!("speechSynthesis" in window)) {
+      clearAutoReadChain();
+      return;
+    }
+    setAutoRead(true);
+    state.reading = true;
+    setTimeout(function () {
+      if (state.autoRead && state.reading) speakLine();
+    }, 700);
+  }
+
+  function setAutoRead(on) {
+    clearNextBookTimer();
+    state.autoRead = on;
+    if (on) rememberAutoReadChain();
+    if (el.auto) {
+      el.auto.classList.toggle("sb-on", on);
+      el.auto.textContent = on ? "⏸ 자동 읽기" : "▶ 자동 읽기";
+    }
+    if (!on) clearAutoReadChain();
+  }
+
+  function rememberAutoReadChain() {
+    try {
+      sessionStorage.setItem(AUTO_CHAIN_KEY, "1");
+    } catch (err) {
+      // 저장소가 막힌 환경에서는 현재 책 안에서만 자동 읽기를 유지한다.
+    }
+  }
+
+  function clearAutoReadChain() {
+    try {
+      sessionStorage.removeItem(AUTO_CHAIN_KEY);
+    } catch (err) {
+      // 무시: 일부 브라우저/모드에서는 sessionStorage 접근이 제한될 수 있다.
+    }
+  }
+
+  function isAutoReadChainEnabled() {
+    try {
+      return sessionStorage.getItem(AUTO_CHAIN_KEY) === "1";
+    } catch (err) {
+      return false;
+    }
+  }
+
+  function clearNextBookTimer() {
+    if (nextBookTimer) {
+      clearTimeout(nextBookTimer);
+      nextBookTimer = null;
+    }
+  }
+
+  function findNextBookId() {
+    var books = [];
+    library.forEach(function (series) {
+      (series.books || []).forEach(function (item) {
+        if (item.available && item.id) books.push(item.id);
+      });
+    });
+
+    var index = books.indexOf(currentBookId);
+    if (index === -1 || index >= books.length - 1) return "";
+    return books[index + 1];
+  }
+
+  function scheduleNextBook() {
+    var nextBookId = findNextBookId();
+    if (!nextBookId) {
+      setAutoRead(false);
+      return;
+    }
+
+    rememberAutoReadChain();
+    clearNextBookTimer();
+    nextBookTimer = setTimeout(function () {
+      location.href = "book.html?book=" + encodeURIComponent(nextBookId) + "&autoplay=1";
+    }, NEXT_BOOK_DELAY_MS);
   }
 
   // 낭독용으로 텍스트를 다듬는다 — 자막 표시는 원문 그대로 두고 읽기만 정제.
@@ -434,20 +541,22 @@
       setTimeout(function () { if (state.reading) speakLine(); }, 250);
       return;
     }
-    if (state.autoRead && state.index < state.pages.length - 1) {
-      setTimeout(function () { if (state.reading) go(state.index + 1); }, 650);
-    } else {
-      stopReading();
-      if (state.autoRead) {
-        state.autoRead = false;
-        el.auto.classList.remove("sb-on");
-        el.auto.textContent = "▶ 자동 읽기";
+    if (state.autoRead) {
+      if (state.index < state.pages.length - 1) {
+        setTimeout(function () { if (state.reading) go(state.index + 1); }, 650);
+      } else {
+        stopReading(true);
+        scheduleNextBook();
       }
+      return;
     }
+
+    stopReading(false);
   }
 
-  function stopReading() {
+  function stopReading(keepAutoRead) {
     state.reading = false;
+    if (!keepAutoRead) setAutoRead(false);
     stopSpeech();
   }
 

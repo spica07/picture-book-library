@@ -4,7 +4,7 @@
  * - 삽화는 한 번 본 페이지부터 캐시 (cache-first)
  * - 새 책을 추가하면 아래 CACHE_VERSION 을 올려야 셸이 갱신됨
  * ============================================================ */
-var CACHE_VERSION = "storybook-v18";
+var CACHE_VERSION = "storybook-v19";
 
 var SHELL = [
   "./",
@@ -108,12 +108,48 @@ self.addEventListener("activate", function (e) {
       return Promise.all(keys.map(function (key) {
         if (key !== CACHE_VERSION) return caches.delete(key);
       }));
-    }).then(function () { return self.clients.claim(); })
+    }).then(function () {
+      return self.clients.claim();
+    }).then(function () {
+      var scopePath = location.pathname.replace(/[^/]*$/, "");
+      return self.clients.matchAll({ type: "window", includeUncontrolled: true })
+        .then(function (clients) {
+          return Promise.all(clients.map(function (client) {
+            if (client.navigate && client.url.indexOf(location.origin + scopePath) === 0) {
+              return client.navigate(client.url);
+            }
+          }));
+        });
+    })
   );
 });
 
 self.addEventListener("fetch", function (e) {
   if (e.request.method !== "GET") return;
+
+  var url = new URL(e.request.url);
+  var scopePath = location.pathname.replace(/[^/]*$/, "");
+  var shellPath = url.pathname.indexOf(scopePath) === 0
+    ? "./" + url.pathname.slice(scopePath.length)
+    : "";
+  var isShell = url.origin === location.origin && SHELL.indexOf(shellPath) !== -1;
+
+  if (isShell) {
+    e.respondWith(
+      fetch(new Request(e.request, { cache: "reload" })).then(function (res) {
+        if (res.ok) {
+          var copy = res.clone();
+          caches.open(CACHE_VERSION).then(function (cache) {
+            cache.put(e.request, copy);
+          });
+        }
+        return res;
+      }).catch(function () {
+        return caches.match(e.request);
+      })
+    );
+    return;
+  }
 
   e.respondWith(
     caches.match(e.request).then(function (cached) {

@@ -157,7 +157,7 @@ body {
 
 /* ---------- 표지 ---------- */
 
-/* 표지 그림은 제목·버튼이 아래에 있으므로 가운데 정렬 */
+/* 표지 그림은 제목 정보가 아래에 있으므로 가운데 정렬 */
 .sb-cover .sb-img { object-position: center; }
 
 .sb-cover .sb-cover-text {
@@ -178,7 +178,7 @@ body {
 
 .sb-meta {
   color: var(--ink-soft);
-  margin-bottom: 14px;
+  margin-bottom: 0;
   font-size: 0.95rem;
 }
 
@@ -395,7 +395,7 @@ body {
   .sb-meta { display: none; }
 
   /* 표지: 가로 화면에서 그림·제목이 위아래 반반으로 나뉘면 답답하다.
-     그림(왼쪽) · 제목/버튼(오른쪽) 좌우 배치로 양쪽 공간을 살린다. */
+     그림(왼쪽) · 제목 정보(오른쪽) 좌우 배치로 양쪽 공간을 살린다. */
   .sb-cover { flex-direction: row; align-items: center; gap: 22px; }
   .sb-cover .sb-figure { flex: 1 1 58%; height: 100%; min-height: 0; }
   .sb-cover .sb-cover-text { flex: 1 1 42%; padding: 0 6px; }
