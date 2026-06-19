@@ -23,7 +23,7 @@
 html, body { height: 100%; }
 
 body {
-  font-family: "Gowun Dodum", "Malgun Gothic", "맑은 고딕", sans-serif;
+  font-family: "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", "Noto Sans KR", system-ui, sans-serif;
   color: var(--ink);
   background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-bottom) 100%);
   background-attachment: fixed;

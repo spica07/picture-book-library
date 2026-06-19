@@ -193,6 +193,50 @@ window.LIBRARY = [
     ]
   },
   {
+    series: "사계절 친구들",
+    seriesIcon: "🍃",
+    books: [
+      { id: "seasons-vol01", volume: "1권", title: "첫 신호, 봄바람이", lesson: "시작을 여는 용기",
+        cover: "../08_seasons/illustrations_web/vol01_cover_spring_wind.webp", available: true },
+      { id: "seasons-vol02", volume: "2권", title: "꼬물꼬물 새싹이", lesson: "작은 시작도 위대해",
+        cover: "../08_seasons/illustrations_web/vol02_cover_sprout.webp", available: true },
+      { id: "seasons-vol03", volume: "3권", title: "활짝 벚꽃이", lesson: "짧아도 아름다운 순간의 소중함",
+        cover: "../08_seasons/illustrations_web/vol03_cover_cherry_blossom.webp", available: true },
+      { id: "seasons-vol04", volume: "4권", title: "아른아른 아지랑이", lesson: "또렷하지 않아도 괜찮아",
+        cover: "../08_seasons/illustrations_web/vol04_cover_heat_haze.webp", available: true },
+      { id: "seasons-vol05", volume: "5권", title: "주룩주룩 장마", lesson: "미움받아도 꼭 필요한 역할이 있다",
+        cover: "../08_seasons/illustrations_web/vol05_cover_rainy_season.webp", available: true },
+      { id: "seasons-vol06", volume: "6권", title: "한여름의 가수, 매미", lesson: "오래 기다린 끝의 빛남(기다림의 가치)",
+        cover: "../08_seasons/illustrations_web/vol06_cover_cicada_singer.webp", available: true },
+      { id: "seasons-vol07", volume: "7권", title: "알록달록 단풍이", lesson: "변화의 아름다움과 내려놓음",
+        cover: "../08_seasons/illustrations_web/vol07_cover_danpungi_autumn_maple.webp", available: true },
+      { id: "seasons-vol08", volume: "8권", title: "설레는 첫눈이", lesson: "설렘과 흔적 남기기",
+        cover: "../08_seasons/illustrations_web/vol08_cover_first_snow.webp", available: true },
+      { id: "seasons-vol09", volume: "9권", title: "웃음꾼 눈사람", lesson: "사라져도 마음에 남는다(이별·추억)",
+        cover: "../08_seasons/illustrations_web/vol09_cover_cheerful_snowman.webp", available: true },
+      { id: "seasons-vol10", volume: "10권", title: "반짝 고드름", lesson: "끝은 새로운 시작(순환)",
+        cover: "../08_seasons/illustrations_web/vol10_cover_sparkling_icicle.webp", available: true },
+      { id: "seasons-vol11", volume: "통합편", title: "일 년 마을 큰 여행", lesson: "계절은 돌고 돌며 모두 소중하다",
+        cover: "../08_seasons/illustrations_web/vol11_cover_year_village_journey.webp", available: true }
+    ]
+  },
+  {
+    series: "별자리 친구들",
+    seriesIcon: "⭐",
+    books: [
+      { id: "constellations-vol01", volume: "1권", title: "일곱 별 형제, 북두칠성", lesson: "함께 모이면 길잡이가 된다",
+        cover: "../09_constellations/illustrations_web/vol01_cover_big_dipper.webp", available: true },
+      { id: "constellations-vol02", volume: "2권", title: "늘 그 자리, 작은곰이", lesson: "작아도 중심이 될 수 있어",
+        cover: "../09_constellations/illustrations_web/vol02_cover_little_bear_polaris.webp", available: true },
+      { id: "constellations-vol03", volume: "3권", title: "큰곰이의 품", lesson: "멀리 있어도 지키는 가족의 사랑",
+        cover: "../09_constellations/illustrations_web/vol03_cover_big_bear_embrace.webp", available: true },
+      { id: "constellations-vol04", volume: "4권", title: "뽐내던 카시오페이아", lesson: "겉보다 마음의 아름다움, 겸손",
+        cover: "../09_constellations/illustrations_web/vol04_cover_cassiopeia_queen_w.webp", available: true },
+      { id: "constellations-vol05", volume: "5권", title: "겨울 사냥꾼, 오리온", lesson: "씩씩한 너도 무서운 밤이 있고, 친구가 있어 빛난다",
+        cover: "../09_constellations/illustrations_web/vol05_cover_orion_winter_hunter_sirius.webp", available: true }
+    ]
+  },
+  {
     series: "탈것 구조대",
     seriesIcon: "🚒",
     books: [

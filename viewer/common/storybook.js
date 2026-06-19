@@ -153,6 +153,10 @@
       );
     }
     var guide = book.parentGuide;
+    var nextBookId = findNextBookId();
+    var nextBookButton = nextBookId
+      ? '      <a class="sb-btn sb-btn-next" href="book.html?book=' + encodeURIComponent(nextBookId) + '">▶ 다음동화 보기</a>'
+      : "";
     return (
       '<section class="sb-slide sb-back">' +
       '  <div class="sb-back-card">' +
@@ -170,6 +174,7 @@
       '    <div class="sb-back-actions">' +
       '      <button class="sb-btn" data-action="restart">🔄 다시 읽기</button>' +
       '      <a class="sb-btn sb-btn-light" href="index.html">📚 책장으로</a>' +
+      nextBookButton +
       "    </div>" +
       "  </div>" +
       "</section>"
