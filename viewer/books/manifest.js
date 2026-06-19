@@ -191,5 +191,33 @@ window.LIBRARY = [
       { id: "emotions-vol11", volume: "통합편", title: "마음 마을 무지개 축제", lesson: "모든 감정이 다 필요해요",
         cover: "../07_emotions/illustrations_web/vol11_special_cover_rainbow_festival.webp", available: true }
     ]
+  },
+  {
+    series: "탈것 구조대",
+    seriesIcon: "🚒",
+    books: [
+      { id: "vehicles-vol01", volume: "1권", title: "빨간 영웅, 소방차", lesson: "침착하게 돕는 용기",
+        cover: "../10_vehicles/illustrations_web/vol01_cover_fire_truck.webp", available: true },
+      { id: "vehicles-vol02", volume: "2권", title: "삐뽀삐뽀 구급차", lesson: "길을 양보하는 마음",
+        cover: "../10_vehicles/illustrations_web/vol02_cover_ambulance_give_way.webp", available: true },
+      { id: "vehicles-vol03", volume: "3권", title: "규칙 지킴이 경찰차", lesson: "규칙은 모두를 지켜 준다",
+        cover: "../10_vehicles/illustrations_web/vol03_cover_police_crosswalk.webp", available: true },
+      { id: "vehicles-vol04", volume: "4권", title: "다 함께 타요, 버스", lesson: "차례와 배려",
+        cover: "../10_vehicles/illustrations_web/vol04_cover_yellow_bus_queue.webp", available: true },
+      { id: "vehicles-vol05", volume: "5권", title: "칙칙폭폭 기차", lesson: "칸칸이 이어 함께 가는 힘",
+        cover: "../10_vehicles/illustrations_web/vol05_cover_green_train_connected.webp", available: true },
+      { id: "vehicles-vol06", volume: "6권", title: "하늘이 무서운 비행기", lesson: "처음의 두려움을 이기는 용기",
+        cover: "../10_vehicles/illustrations_web/vol06_cover_airplane_afraid_sky.webp", available: true },
+      { id: "vehicles-vol07", volume: "7권", title: "느림보 배의 큰 마음", lesson: "느려도 든든하다",
+        cover: "../10_vehicles/illustrations_web/vol07_cover_dependable_ferry.webp", available: true },
+      { id: "vehicles-vol08", volume: "8권", title: "겉모습은 무서워도, 포클레인", lesson: "겉모습보다 속마음, 힘은 돕는 데 쓰는 것",
+        cover: "../10_vehicles/illustrations_web/vol08_cover_excavator_clears_rubble.webp", available: true },
+      { id: "vehicles-vol09", volume: "9권", title: "가장 멀리 꿈꾸는 우주선", lesson: "꿈을 향한 도전",
+        cover: "../10_vehicles/illustrations_web/vol09_cover_dreaming_spaceship.webp", available: true },
+      { id: "vehicles-vol10", volume: "10권", title: "작아도 내 힘으로, 자전거", lesson: "작고 느려도 내 힘으로 나아가",
+        cover: "../10_vehicles/illustrations_web/vol10_cover_red_bicycle_helmet_path.webp", available: true },
+      { id: "vehicles-vol11", volume: "통합편", title: "마을 대구조 작전", lesson: "저마다 다른 역할이 모여 마을을 구한다",
+        cover: "../10_vehicles/illustrations_web/vol11_special_cover_village_rescue_operation.webp", available: true }
+    ]
   }
 ];
