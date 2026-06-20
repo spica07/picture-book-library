@@ -233,7 +233,19 @@ window.LIBRARY = [
       { id: "constellations-vol04", volume: "4권", title: "뽐내던 카시오페이아", lesson: "겉보다 마음의 아름다움, 겸손",
         cover: "../09_constellations/illustrations_web/vol04_cover_cassiopeia_queen_w.webp", available: true },
       { id: "constellations-vol05", volume: "5권", title: "겨울 사냥꾼, 오리온", lesson: "씩씩한 너도 무서운 밤이 있고, 친구가 있어 빛난다",
-        cover: "../09_constellations/illustrations_web/vol05_cover_orion_winter_hunter_sirius.webp", available: true }
+        cover: "../09_constellations/illustrations_web/vol05_cover_orion_winter_hunter_sirius.webp", available: true },
+      { id: "constellations-vol06", volume: "6권", title: "여름의 전갈이", lesson: "서로 달라 못 만나도 마음은 통한다",
+        cover: "../09_constellations/illustrations_web/vol06_cover_summer_scorpius_orion_opposite.webp", available: true },
+      { id: "constellations-vol07", volume: "7권", title: "은하수를 나는 백조", lesson: "나만의 길을 자유롭게",
+        cover: "../09_constellations/illustrations_web/vol07_cover_cygnus_milky_way_triangle.webp", available: true },
+      { id: "constellations-vol08", volume: "8권", title: "노래하는 거문고", lesson: "그리움을 노래로 전한다",
+        cover: "../09_constellations/illustrations_web/vol08_cover_vega_geomungo_milky_way.webp", available: true },
+      { id: "constellations-vol09", volume: "9권", title: "둘이라서 좋아, 쌍둥이별", lesson: "우정과 형제애",
+        cover: "../09_constellations/illustrations_web/vol09_cover_castor_pollux_winter_orion.webp", available: true },
+      { id: "constellations-vol10", volume: "10권", title: "새벽의 샛별", lesson: "남과 달라도 나는 특별해(진짜 나 알기)",
+        cover: "../09_constellations/illustrations_web/vol10_cover_morning_star_crescent_dawn.webp", available: true },
+      { id: "constellations-vol11", volume: "통합편", title: "밤하늘 별자리 대축제", lesson: "계절마다 다른 별들이 모두 밤하늘을 지킨다",
+        cover: "../09_constellations/illustrations_web/vol11_cover_constellation_festival_all_friends.webp", available: true }
     ]
   },
   {
