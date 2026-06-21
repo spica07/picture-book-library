@@ -273,7 +273,27 @@ window.LIBRARY = [
       { id: "vehicles-vol10", volume: "10권", title: "작아도 내 힘으로, 자전거", lesson: "작고 느려도 내 힘으로 나아가",
         cover: "../10_vehicles/illustrations_web/vol10_cover_red_bicycle_helmet_path.webp", available: true },
       { id: "vehicles-vol11", volume: "통합편", title: "마을 대구조 작전", lesson: "저마다 다른 역할이 모여 마을을 구한다",
-        cover: "../10_vehicles/illustrations_web/vol11_special_cover_village_rescue_operation.webp", available: true }
+        cover: "../10_vehicles/illustrations_web/vol11_cover_village_rescue_operation.webp", available: true }
+    ]
+  },
+  {
+    series: "풀숲 친구들",
+    seriesIcon: "🦋",
+    books: [
+      { id: "insects-vol01", volume: "1권", title: "꼬물꼬물 애벌레", lesson: "지금의 내 모습도 소중해 (변화를 믿고 기다리기)",
+        cover: "../11_insects/illustrations_web/vol01_cover_caterpillar_on_leaf.webp", available: true },
+      { id: "insects-vol02", volume: "2권", title: "팔랑팔랑 나비", lesson: "기다림 끝에 펼치는 날개(인내와 변화의 완성)",
+        cover: "../11_insects/illustrations_web/vol02_cover_butterfly_yellow_flower.webp", available: true },
+      { id: "insects-vol03", volume: "3권", title: "붕붕 꿀벌이", lesson: "함께 일하면 더 멀리 간다(협동)",
+        cover: "../11_insects/illustrations_web/vol03_cover_busy_honeybee.webp", available: true },
+      { id: "insects-vol04", volume: "4권", title: "점박이 무당벌레", lesson: "작고 평범해 보여도 큰 도움이 될 수 있다",
+        cover: "../11_insects/illustrations_web/vol04_cover_spotted_ladybug.webp", available: true },
+      { id: "insects-vol05", volume: "5권", title: "반짝 겹눈, 잠자리", lesson: "용기를 내어 높이 보면 더 멀리 보인다",
+        cover: "../11_insects/illustrations_web/vol05_cover_dragonfly_high_sky.webp", available: true },
+      { id: "insects-vol06", volume: "6권", title: "씩씩한 사슴벌레", lesson: "힘은 자랑이 아니라 돕는 데 쓰는 것",
+        cover: "../11_insects/illustrations_web/vol06_cover_stag_beetle_raised_jaws.webp", available: true },
+      { id: "insects-vol07", volume: "7권", title: "폴짝 메뚜기", lesson: "멀리 뛰려면 먼저 움츠려야 한다(준비와 도전)",
+        cover: "../11_insects/illustrations_web/vol07_cover_leaping_grasshopper.webp", available: true }
     ]
   }
 ];

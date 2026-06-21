@@ -4,7 +4,7 @@
  * - 삽화는 한 번 본 페이지부터 캐시 (cache-first)
  * - 새 책을 추가하면 아래 CACHE_VERSION 을 올려야 셸이 갱신됨
  * ============================================================ */
-var CACHE_VERSION = "storybook-v36";
+var CACHE_VERSION = "storybook-v43";
 
 var SHELL = [
   "./",
@@ -120,6 +120,13 @@ var SHELL = [
   "./books/vehicles-vol09.js",
   "./books/vehicles-vol10.js",
   "./books/vehicles-vol11.js",
+  "./books/insects-vol01.js",
+  "./books/insects-vol02.js",
+  "./books/insects-vol03.js",
+  "./books/insects-vol04.js",
+  "./books/insects-vol05.js",
+  "./books/insects-vol06.js",
+  "./books/insects-vol07.js",
   "./icons/icon-192.png",
   "./icons/icon-512.png"
 ];
