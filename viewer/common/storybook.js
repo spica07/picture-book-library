@@ -92,15 +92,81 @@
     state.pages = [{ type: "cover" }];
     state.texts = [book.series + " " + book.volume + ", " + book.title + "."];
     book.scenes.forEach(function (scene, i) {
-      // 한 장면 텍스트를 줄 단위 "문장"으로 나눠 한 문장씩 보여준다
-      var lines = scene.text.split("\n").map(function (s) { return s.trim(); })
-        .filter(function (s) { return s.length; });
+      var lines = captionLines(scene.text);
       if (!lines.length) lines = [scene.text.trim()];
       state.pages.push({ type: "scene", scene: scene, num: i + 1, lines: lines });
       state.texts.push(scene.text.replace(/\n/g, " "));
     });
     state.pages.push({ type: "back" });
     state.texts.push("끝. " + book.backCoverQuote);
+  }
+
+  function captionLines(text) {
+    if (usesSentenceCaptions()) return splitSentences(text);
+    return text.split("\n").map(function (s) { return s.trim(); })
+      .filter(function (s) { return s.length; });
+  }
+
+  function usesSentenceCaptions() {
+    return !!(book && /^(seasons|constellations|vehicles|insects)-vol/.test(book.id || ""));
+  }
+
+  function splitSentences(text) {
+    var value = (text || "").replace(/\s*\n+\s*/g, " ").replace(/\s+/g, " ").trim();
+    var lines = [];
+    var start = 0;
+    var openQuote = "";
+    for (var i = 0; i < value.length; i++) {
+      if (!/[.!?。？！]/.test(value.charAt(i))) continue;
+      var end = i + 1;
+      while (end < value.length && /[.!?。？！]/.test(value.charAt(end))) end++;
+      while (end < value.length && /["'”’」』》）)\]]/.test(value.charAt(end))) end++;
+      var line = value.slice(start, end).trim();
+      if (line) {
+        var balanced = balanceCaptionQuote(line, openQuote);
+        lines.push(balanced.line);
+        openQuote = balanced.openQuote;
+      }
+      while (end < value.length && /\s/.test(value.charAt(end))) end++;
+      start = end;
+      i = end - 1;
+    }
+    var rest = value.slice(start).trim();
+    if (rest) lines.push(balanceCaptionQuote(rest, openQuote).line);
+    return lines;
+  }
+
+  function balanceCaptionQuote(line, openQuote) {
+    if (openQuote && line.charAt(0) !== openQuote) line = openQuote + line;
+
+    var pairs = [
+      { open: '"', close: '"' },
+      { open: "“", close: "”" },
+      { open: "‘", close: "’" },
+      { open: "「", close: "」" },
+      { open: "『", close: "』" }
+    ];
+    for (var i = 0; i < pairs.length; i++) {
+      var pair = pairs[i];
+      if (openQuote && pair.open !== openQuote) continue;
+      if (!quoteIsOpen(line, pair.open, pair.close)) continue;
+      return { line: line + pair.close, openQuote: pair.open };
+    }
+    return { line: line, openQuote: "" };
+  }
+
+  function quoteIsOpen(line, open, close) {
+    var opens = countChar(line, open);
+    var closes = open === close ? opens : countChar(line, close);
+    return open === close ? opens % 2 === 1 : opens > closes;
+  }
+
+  function countChar(text, target) {
+    var count = 0;
+    for (var i = 0; i < text.length; i++) {
+      if (text.charAt(i) === target) count++;
+    }
+    return count;
   }
 
   function originalImgUrl(file) {
