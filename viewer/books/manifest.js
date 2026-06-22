@@ -297,7 +297,11 @@ window.LIBRARY = [
       { id: "insects-vol08", volume: "8권", title: "느릿느릿 달팽이", lesson: "느려도 꾸준하면 반드시 도착한다(나만의 속도)",
         cover: "../11_insects/illustrations_web/vol08_cover_snail_dewy_leaf.webp", available: true },
       { id: "insects-vol09", volume: "9권", title: "줄 짓는 거미", lesson: "오해받아도 묵묵히 제 역할을 하면 마음이 닿는다",
-        cover: "../11_insects/illustrations_web/vol09_cover_dewy_rainbow_web.webp", available: true }
+        cover: "../11_insects/illustrations_web/vol09_cover_dewy_rainbow_web.webp", available: true },
+      { id: "insects-vol10", volume: "10권", title: "깜빡깜빡 반딧불이", lesson: "작은 빛도 어둠 속 친구에게 가장 밝은 희망이 된다",
+        cover: "../11_insects/illustrations_web/vol10_cover_glowing_firefly_night.webp", available: true },
+      { id: "insects-vol11", volume: "통합편", title: "풀숲 음악회", lesson: "작고 저마다 달라도 모두 모이면 가장 아름다운 하나가 된다",
+        cover: "../11_insects/illustrations_web/vol11_cover_meadow_concert_ensemble.webp", available: true }
     ]
   }
 ];
