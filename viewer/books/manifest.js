@@ -293,7 +293,11 @@ window.LIBRARY = [
       { id: "insects-vol06", volume: "6권", title: "씩씩한 사슴벌레", lesson: "힘은 자랑이 아니라 돕는 데 쓰는 것",
         cover: "../11_insects/illustrations_web/vol06_cover_stag_beetle_raised_jaws.webp", available: true },
       { id: "insects-vol07", volume: "7권", title: "폴짝 메뚜기", lesson: "멀리 뛰려면 먼저 움츠려야 한다(준비와 도전)",
-        cover: "../11_insects/illustrations_web/vol07_cover_leaping_grasshopper.webp", available: true }
+        cover: "../11_insects/illustrations_web/vol07_cover_leaping_grasshopper.webp", available: true },
+      { id: "insects-vol08", volume: "8권", title: "느릿느릿 달팽이", lesson: "느려도 꾸준하면 반드시 도착한다(나만의 속도)",
+        cover: "../11_insects/illustrations_web/vol08_cover_snail_dewy_leaf.webp", available: true },
+      { id: "insects-vol09", volume: "9권", title: "줄 짓는 거미", lesson: "오해받아도 묵묵히 제 역할을 하면 마음이 닿는다",
+        cover: "../11_insects/illustrations_web/vol09_cover_dewy_rainbow_web.webp", available: true }
     ]
   }
 ];
