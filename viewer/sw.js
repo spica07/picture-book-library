@@ -4,7 +4,7 @@
  * - 삽화는 한 번 본 페이지부터 캐시 (cache-first)
  * - 새 책을 추가하면 아래 CACHE_VERSION 을 올려야 셸이 갱신됨
  * ============================================================ */
-var CACHE_VERSION = "storybook-v50";
+var CACHE_VERSION = "storybook-v51";
 
 var SHELL = [
   "./",
@@ -232,8 +232,27 @@ self.addEventListener("fetch", function (e) {
     ? "./" + url.pathname.slice(scopePath.length)
     : "";
   var isShell = url.origin === location.origin && SHELL.indexOf(shellPath) !== -1;
+  var isSameOrigin = url.origin === location.origin;
+  var isImage = isSameOrigin && /\.(?:png|jpe?g|webp|gif|svg)$/i.test(url.pathname);
 
   if (isShell) {
+    e.respondWith(
+      fetch(new Request(e.request, { cache: "reload" })).then(function (res) {
+        if (res.ok) {
+          var copy = res.clone();
+          caches.open(CACHE_VERSION).then(function (cache) {
+            cache.put(e.request, copy);
+          });
+        }
+        return res;
+      }).catch(function () {
+        return caches.match(e.request);
+      })
+    );
+    return;
+  }
+
+  if (isImage) {
     e.respondWith(
       fetch(new Request(e.request, { cache: "reload" })).then(function (res) {
         if (res.ok) {
