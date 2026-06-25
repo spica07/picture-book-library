@@ -127,3 +127,9 @@ body {
   padding: 0 20px 50px;
   font-size: 0.9rem;
 }
+
+.lib-copyright {
+  margin: 0 0 10px;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
