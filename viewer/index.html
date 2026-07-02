@@ -70,7 +70,7 @@ if ("serviceWorker" in navigator && location.protocol !== "file:") {
   var filter = document.createElement("nav");
   filter.className = "lib-filter";
   filter.setAttribute("aria-label", "주제별 바로가기");
-  filter.innerHTML = lib.map(function (s, i) {
+  filter.innerHTML = '<a class="lib-chip" href="characters.html">주제별 캐릭터 삽화북</a>' + lib.map(function (s, i) {
     return '<button class="lib-chip" type="button" data-target="' + seriesId(i) + '">' +
       s.seriesIcon + " " + s.series + "</button>";
   }).join("");
@@ -87,7 +87,7 @@ if ("serviceWorker" in navigator && location.protocol !== "file:") {
     root.appendChild(section);
   });
 
-  var chips = [].slice.call(filter.querySelectorAll(".lib-chip"));
+  var chips = [].slice.call(filter.querySelectorAll("[data-target]"));
 
   // 칩 클릭 → 해당 주제로 부드럽게 스크롤
   filter.addEventListener("click", function (e) {

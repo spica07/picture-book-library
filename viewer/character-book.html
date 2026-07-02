@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>캐릭터 삽화북 — 그림동화 책장</title>
+<meta name="theme-color" content="#bfe3ff">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="common/storybook.css">
+<link rel="stylesheet" href="common/characters.css">
+</head>
+<body>
+<header class="char-header char-detail-header">
+  <a class="char-home" href="characters.html">삽화북 목록</a>
+  <div class="char-title">
+    <p id="character-kicker">캐릭터 삽화북</p>
+    <h1 id="character-title">캐릭터 삽화북</h1>
+  </div>
+  <a class="char-home" href="index.html">책장</a>
+</header>
+
+<main id="character-book" class="char-book"></main>
+
+<script>
+if ("serviceWorker" in navigator && location.protocol !== "file:") {
+  navigator.serviceWorker.register("sw.js");
+}
+</script>
+<script src="books/manifest.js"></script>
+<script src="common/character-books.js"></script>
+<script>
+window.CharacterBooks.renderDetail({
+  root: document.getElementById("character-book"),
+  title: document.getElementById("character-title"),
+  kicker: document.getElementById("character-kicker")
+});
+</script>
+</body>
+</html>
